@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Brutalist Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Courier Prime', monospace; background-color: #e0e7ff; }
+        h1, h2, h3 { font-family: 'Archivo Black', sans-serif; }
+        .hard-shadow { box-shadow: 8px 8px 0px 0px #000; }
+        .hard-shadow-sm { box-shadow: 4px 4px 0px 0px #000; }
+        .btn-active:active { transform: translate(4px, 4px); box-shadow: none; }
+    </style>
+</head>
+<body class="min-h-screen p-8 flex flex-col items-center justify-center">
+    
+    <nav class="w-full max-w-3xl bg-[#fdba74] border-4 border-black p-4 mb-8 flex justify-between items-center hard-shadow-sm">
+        <span class="font-bold text-xl uppercase">Brutal.css</span>
+        <div class="space-x-4 hidden sm:block">
+            <a href="#" class="underline hover:no-underline decoration-2">Work</a>
+            <a href="#" class="underline hover:no-underline decoration-2">Info</a>
+        </div>
+    </nav>
+
+    <main class="w-full max-w-3xl bg-white border-4 border-black p-8 md:p-12 hard-shadow relative">
+        <div class="absolute -top-6 -right-6 bg-[#bef264] text-black w-24 h-24 rounded-full border-4 border-black flex items-center justify-center font-bold rotate-12 z-10 shadow-lg">
+            NEW!
+        </div>
+
+        <h1 class="text-6xl md:text-8xl mb-6 leading-[0.85] tracking-tighter">
+            MAKE IT<br>SIMPLE.
+        </h1>
+        
+        <div class="h-1 bg-black w-full my-8"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <p class="text-lg leading-snug mb-6">
+                    Reject modern softness. Embrace the raw, unpolished web. 
+                    Default borders, high contrast, and zero gradients.
+                </p>
+                <button class="w-full bg-[#67e8f9] border-4 border-black py-4 font-bold text-xl uppercase hover:bg-[#22d3ee] transition-colors hard-shadow-sm btn-active">
+                    Start Now
+                </button>
+            </div>
+            <div class="bg-black text-white p-6 border-4 border-black h-full flex items-center justify-center">
+                <p class="text-center italic">"Style is cyclic. The raw web is back."</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
