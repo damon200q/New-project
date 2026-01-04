@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Matrix</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: black; font-family: 'Courier New', monospace; color: #0f0; }
+        canvas { display: block; position: absolute; top: 0; left: 0; z-index: 0; }
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            background: rgba(0, 10, 0, 0.9);
+            border: 1px solid #0f0;
+            padding: 40px;
+            box-shadow: 0 0 20px #0f0;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        button {
+            background: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            padding: 15px 30px;
+            font-family: inherit;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 15px #0f0;
+        }
+        .cursor { animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    
+    <div class="content">
+        <h1 style="margin: 0 0 20px 0; font-size: 2.5rem;">WAKE UP, NEO.</h1>
+        <p id="typewriter" style="font-size: 1.2rem; min-height: 1.5em;"></p>
+        <button onclick="alert('Follow the white rabbit.')">FOLLOW THE RABBIT</button>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const c = document.getElementById("c");
+        const ctx = c.getContext("2d");
+        
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        
+        const chars = "01ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍｦｲｸｺ";
+        const charArray = chars.split("");
+        const fontSize = 16;
+        const columns = c.width / fontSize;
+        const drops = [];
+        
+        for (let x = 0; x < columns; x++) drops[x] = 1;
+        
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, c.width, c.height);
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > c.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+        
+        window.addEventListener('resize', () => {
+            c.width = window.innerWidth;
+            c.height = window.innerHeight;
+        });
+
+        // Typewriter Effect
+        const text = "The Matrix has you...";
+        const typeEl = document.getElementById('typewriter');
+        let i = 0;
+        
+        function type() {
+            if (i < text.length) {
+                typeEl.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 150);
+            } else {
+                typeEl.innerHTML += '<span class="cursor">_</span>';
+            }
+        }
+        setTimeout(type, 1000);
+    </script>
+</body>
+</html>
