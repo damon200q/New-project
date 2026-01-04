@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutalist Web</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background-color: #ffde00; }
+        .hard-shadow { box-shadow: 8px 8px 0px 0px #000; }
+        .btn-press:active { transform: translate(4px, 4px); box-shadow: none; }
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+    </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen flex flex-col">
+    <nav class="border-4 border-black bg-white p-4 mb-8 flex justify-between items-center hard-shadow">
+        <h1 class="text-3xl font-black uppercase tracking-tighter">BRUTAL.</h1>
+        <div class="hidden md:block">
+            <a href="#" class="ml-6 underline decoration-4 hover:bg-black hover:text-white px-1">WORK</a>
+            <a href="#" class="ml-6 underline decoration-4 hover:bg-black hover:text-white px-1">CONTACT</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-blue-600 border-4 border-black p-8 text-white hard-shadow flex flex-col justify-between">
+            <h2 class="text-6xl md:text-8xl font-black leading-none mb-6">RAW<br>POWER.</h2>
+            <p class="text-xl font-bold font-sans">Default styling is boring. Embrace the ugly.</p>
+        </div>
+
+        <div class="bg-white border-4 border-black p-8 hard-shadow flex flex-col items-start">
+            <div class="w-full h-48 bg-black mb-6 flex items-center justify-center">
+                <span class="text-white text-4xl animate-pulse">!</span>
+            </div>
+            <h3 class="text-4xl font-bold mb-4 uppercase">Features</h3>
+            <ul class="list-disc list-inside text-lg mb-8 space-y-2 font-bold">
+                <li>Zero Opacity</li>
+                <li>System Fonts</li>
+                <li>Pure Hex Colors</li>
+            </ul>
+            <button class="w-full bg-red-500 border-4 border-black py-4 text-2xl font-bold uppercase text-white hover:bg-red-600 transition-none hard-shadow btn-press mt-auto">
+                Execute
+            </button>
+        </div>
+    </main>
+
+    <footer class="mt-8 border-4 border-black bg-white py-2 hard-shadow">
+        <div class="marquee-container">
+            <span class="text-xl font-bold mx-4">/// SYSTEM RAW /// NO COOKIES /// FAST LOAD ///</span>
+            <span class="text-xl font-bold mx-4">/// SYSTEM RAW /// NO COOKIES /// FAST LOAD ///</span>
+            <span class="text-xl font-bold mx-4">/// SYSTEM RAW /// NO COOKIES /// FAST LOAD ///</span>
+        </div>
+    </footer>
+</body>
+</html>
