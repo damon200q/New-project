@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HN500 UI Templates | AI-Generated Excellence</title>
+    <title>HN500 UI Templates | Premium Collection</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -22,14 +24,12 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: #e5e5e5; }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
         
         .glass-nav {
             background: rgba(10, 10, 10, 0.7);
@@ -52,6 +52,17 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        
+        .spinner {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -62,15 +73,12 @@
                 <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white">H</div>
                 <span class="self-center text-xl font-semibold whitespace-nowrap text-white">HN500</span>
             </a>
-            <div class="hidden md:block w-full md:w-auto" id="navbar-default">
-                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-                    <li><a href="#" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-500 md:p-0" aria-current="page">Home</a></li>
-                    <li><a href="#templates" class="block py-2 px-3 text-gray-400 hover:text-white md:border-0 md:hover:text-white md:p-0">Templates</a></li>
-                    <li><a href="#about" class="block py-2 px-3 text-gray-400 hover:text-white md:border-0 md:hover:text-white md:p-0">About</a></li>
+            <div class="hidden md:block">
+                <ul class="font-medium flex space-x-8">
+                    <li><a href="#" class="text-white hover:text-blue-400 transition-colors">Home</a></li>
+                    <li><a href="#templates" class="text-gray-400 hover:text-white transition-colors">Templates</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
                 </ul>
-            </div>
-            <div class="md:hidden">
-                <button class="text-gray-400 hover:text-white">☰</button>
             </div>
         </div>
     </nav>
@@ -78,31 +86,28 @@
     <section class="relative pt-32 pb-20 px-4 text-center overflow-hidden">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
         <div class="max-w-4xl mx-auto">
-            <span class="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-400 mb-6">v1.2 Release</span>
+            <span class="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-400 mb-6">v3.0 Updated</span>
             <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 gradient-text">
-                HN500 UI Templates
+                Build Faster.
             </h1>
             <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Beautifully crafted, AI-generated UI components & templates. <br class="hidden md:block"/>
-                Simple, fast, and completely free to use for your next big idea.
+                9 Premium, AI-generated templates ready for production. <br class="hidden md:block"/>
+                Click "Download Zip" to get the source code instantly.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#templates" class="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors">Browse Templates</a>
-                <a href="#" class="px-8 py-3 bg-white/5 border border-white/10 text-white font-semibold rounded-lg hover:bg-white/10 transition-colors">GitHub Repo</a>
+            <div class="flex justify-center gap-4">
+                <a href="#templates" class="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors">Explore All</a>
             </div>
         </div>
     </section>
 
     <section id="templates" class="flex-grow max-w-screen-xl mx-auto px-4 py-16 w-full">
-        <div class="flex justify-between items-end mb-10">
+        <div class="flex justify-between items-end mb-10 border-b border-zinc-800 pb-4">
             <div>
-                <h2 class="text-3xl font-bold text-white mb-2">Latest Collection</h2>
-                <p class="text-gray-500">Curated interfaces for modern web applications.</p>
+                <h2 class="text-3xl font-bold text-white mb-2">Template Collection</h2>
+                <p class="text-gray-500">HTML5 + Tailwind CSS + Fully Responsive.</p>
             </div>
-            <div class="hidden md:flex gap-2">
-                <button class="px-3 py-1 text-sm bg-blue-600/20 text-blue-400 rounded-md border border-blue-600/30">All</button>
-                <button class="px-3 py-1 text-sm bg-zinc-900 text-gray-400 rounded-md border border-zinc-800 hover:border-zinc-700">Landing</button>
-                <button class="px-3 py-1 text-sm bg-zinc-900 text-gray-400 rounded-md border border-zinc-800 hover:border-zinc-700">Dashboard</button>
+            <div class="text-sm text-gray-400">
+                Total Items: <span class="text-white font-bold" id="count-display">0</span>
             </div>
         </div>
 
@@ -111,179 +116,202 @@
     </section>
 
     <footer class="bg-black/50 border-t border-white/5 py-12 mt-20">
-        <div class="max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-gray-500 text-sm">
-                &copy; 2026 HN500 Studio. Open Source MIT.
-            </div>
-            <div class="flex gap-6">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">GitHub</a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors">Twitter</a>
-                <a href="#" class="flex items-center gap-2 px-4 py-2 bg-yellow-400/10 text-yellow-400 rounded-full text-sm font-medium hover:bg-yellow-400/20 transition-colors">
-                    ☕ Buy me a coffee
-                </a>
-            </div>
+        <div class="max-w-screen-xl mx-auto px-4 text-center text-gray-500 text-sm">
+            &copy; 2026 HN500 Studio. MIT License.
         </div>
     </footer>
 
-    <div id="preview-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex flex-col">
-        <div class="flex items-center justify-between p-4 border-b border-white/10 bg-zinc-950">
-            <h3 id="modal-title" class="text-white font-semibold">Preview</h3>
-            <div class="flex gap-4">
-                <button id="modal-download-btn" class="px-4 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded">Download Code</button>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-        </div>
-        <div class="flex-grow w-full h-full bg-zinc-900 relative">
-             <div class="absolute inset-0 flex items-center justify-center text-gray-500" id="loading-spinner">Loading Preview...</div>
-             <iframe id="preview-frame" class="w-full h-full border-0" onload="document.getElementById('loading-spinner').style.display='none'"></iframe>
-        </div>
-    </div>
-
     <script>
-        // TEMPLATE DATA
-        // Note: The first 3 have 'realFile' paths. Ensure these files exist in the same folder.
+        // ==========================================
+        // 1. TEMPLATE SOURCE CODES (ALL 9 TEMPLATES)
+        // ==========================================
+        const templateSources = {
+            'minimal': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Minimal Template</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&display=swap" rel="stylesheet"><style>body{font-family:'Outfit',sans-serif;background-color:#fafafa}<\/style></head><body class="min-h-screen flex items-center justify-center p-6"><div class="relative w-full max-w-4xl bg-white rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden flex flex-col md:flex-row min-h-[500px]"><div class="w-full md:w-1/2 p-12 flex flex-col justify-center z-10"><div class="inline-block w-10 h-1 bg-black mb-8"></div><h1 class="text-5xl font-light text-gray-900 leading-tight mb-6">Design is <br> <span class="font-medium">Intelligence</span> <br> made visible.</h1><p class="text-gray-400 mb-8 max-w-xs">A minimal layout focusing on typography and negative space.</p><button class="px-8 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">Explore</button></div><div class="w-full md:w-1/2 bg-gray-100 relative overflow-hidden"><img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=1000" class="absolute inset-0 w-full h-full object-cover opacity-90" alt="Minimal"><div class="absolute bottom-8 right-8 bg-white/30 backdrop-blur-md border border-white/20 p-4 rounded-xl shadow-lg w-48"><div class="text-xs font-bold text-gray-800 uppercase tracking-widest mb-1">Status</div><div class="text-2xl font-light text-gray-900">Active</div></div></div></div></body></html>`,
+            
+            'cyber': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cyberpunk Template</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"><style>body{font-family:'Share Tech Mono',monospace;background-color:#050505;background-image:linear-gradient(rgba(0,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,255,0.03) 1px,transparent 1px);background-size:30px 30px}.neon-shadow{box-shadow:4px 4px 0px #d946ef}.glitch-hover:hover{text-shadow:2px 0 #06b6d4,-2px 0 #d946ef}<\/style></head><body class="text-cyan-400 min-h-screen flex items-center justify-center p-4"><div class="max-w-2xl w-full border-2 border-cyan-500/50 bg-black/80 p-1 relative backdrop-blur-sm"><div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-pink-500"></div><div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-pink-500"></div><div class="p-8 border border-cyan-500/20"><header class="flex justify-between items-center mb-12 border-b border-cyan-900 pb-4"><div class="text-2xl font-bold tracking-widest text-white">NEO.NET</div><div class="text-xs text-pink-500 animate-pulse">● SYSTEM ONLINE</div></header><main><h1 class="text-6xl md:text-7xl font-bold text-white mb-6 uppercase glitch-hover cursor-default">Future<br>Protocol</h1><p class="text-xl text-cyan-200/70 mb-10 max-w-lg">> Initializing connection...<br>> Accessing neural interface...</p><div class="flex flex-col sm:flex-row gap-4"><button class="px-8 py-4 bg-pink-600 text-black font-bold uppercase hover:bg-pink-500 transition-colors neon-shadow translate-y-[-4px] active:translate-y-0 active:shadow-none">Initialize</button></div></main></div></div></body></html>`,
+            
+            'retro': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Retro Brutalist</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet"><style>body{font-family:'Courier Prime',monospace;background-color:#e0e7ff}h1,h2,h3{font-family:'Archivo Black',sans-serif}.hard-shadow{box-shadow:8px 8px 0px 0px #000}.btn-active:active{transform:translate(4px,4px);box-shadow:none}<\/style></head><body class="min-h-screen p-8 flex flex-col items-center justify-center"><nav class="w-full max-w-3xl bg-[#fdba74] border-4 border-black p-4 mb-8 flex justify-between items-center hard-shadow"><span class="font-bold text-xl uppercase">Brutal.css</span></nav><main class="w-full max-w-3xl bg-white border-4 border-black p-8 md:p-12 hard-shadow relative"><div class="absolute -top-6 -right-6 bg-[#bef264] text-black w-24 h-24 rounded-full border-4 border-black flex items-center justify-center font-bold rotate-12 z-10 shadow-lg">NEW!</div><h1 class="text-6xl md:text-8xl mb-6 leading-[0.85] tracking-tighter">MAKE IT<br>SIMPLE.</h1><button class="w-full bg-[#67e8f9] border-4 border-black py-4 font-bold text-xl uppercase hover:bg-[#22d3ee] transition-colors hard-shadow btn-active">Start Now</button></main></body></html>`,
+
+            // --- NEW TEMPLATE 4: SaaS Dashboard ---
+            'dashboard': `<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dark SaaS Dashboard</title><script src="https://cdn.tailwindcss.com"><\/script></head><body class="bg-slate-900 text-slate-200 font-sans"><div class="flex h-screen overflow-hidden"><aside class="w-64 bg-slate-950 border-r border-slate-800 hidden md:flex flex-col"><div class="p-6 text-xl font-bold text-white tracking-wider">ANALYTICS<span class="text-blue-500">.</span></div><nav class="flex-1 px-4 space-y-2"><a href="#" class="block px-4 py-2 bg-blue-600 text-white rounded-lg">Overview</a><a href="#" class="block px-4 py-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">Customers</a><a href="#" class="block px-4 py-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white">Settings</a></nav><div class="p-4 border-t border-slate-800"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-400 to-purple-500"></div><span class="text-sm">Admin User</span></div></div></aside><main class="flex-1 overflow-y-auto"><header class="h-16 border-b border-slate-800 flex items-center justify-between px-8 bg-slate-900/50 backdrop-blur"><h2 class="text-lg font-medium text-white">Dashboard Overview</h2><button class="md:hidden text-white">Menu</button></header><div class="p-8"><div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"><div class="p-6 bg-slate-800 rounded-xl border border-slate-700"><div class="text-slate-400 text-sm mb-1">Total Revenue</div><div class="text-3xl font-bold text-white">$42,593</div><div class="text-green-400 text-xs mt-2">↑ 12% vs last month</div></div><div class="p-6 bg-slate-800 rounded-xl border border-slate-700"><div class="text-slate-400 text-sm mb-1">Active Users</div><div class="text-3xl font-bold text-white">8,100</div><div class="text-green-400 text-xs mt-2">↑ 5% vs last month</div></div><div class="p-6 bg-slate-800 rounded-xl border border-slate-700"><div class="text-slate-400 text-sm mb-1">Bounce Rate</div><div class="text-3xl font-bold text-white">4.3%</div><div class="text-red-400 text-xs mt-2">↓ 1% vs last month</div></div></div><div class="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden"><div class="p-6 border-b border-slate-700 font-medium text-white">Recent Transactions</div><table class="w-full text-left text-sm text-slate-400"><thead class="bg-slate-900/50 uppercase text-xs"><tr><th class="px-6 py-3">User</th><th class="px-6 py-3">Date</th><th class="px-6 py-3">Status</th><th class="px-6 py-3 text-right">Amount</th></tr></thead><tbody class="divide-y divide-slate-700"><tr><td class="px-6 py-4">Alice Freeman</td><td class="px-6 py-4">Oct 24, 2024</td><td class="px-6 py-4 text-green-400">Paid</td><td class="px-6 py-4 text-right text-white">$120.00</td></tr><tr><td class="px-6 py-4">Bob Smith</td><td class="px-6 py-4">Oct 23, 2024</td><td class="px-6 py-4 text-yellow-400">Pending</td><td class="px-6 py-4 text-right text-white">$45.00</td></tr></tbody></table></div></div></main></div></body></html>`,
+
+            // --- NEW TEMPLATE 5: Bento Portfolio ---
+            'bento': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Bento Portfolio</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet"><style>body{font-family:'Plus Jakarta Sans',sans-serif;background-color:#f3f4f6}</style></head><body class="min-h-screen p-4 md:p-12 flex items-center justify-center"><div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-4 grid-rows-auto md:grid-rows-3 gap-4"><div class="md:col-span-2 md:row-span-2 bg-white rounded-3xl p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition"><div class="w-16 h-16 bg-black rounded-full mb-4"></div><h1 class="text-4xl font-bold text-gray-900 mb-2">Hello, I'm <br>Alex Design.</h1><p class="text-gray-500">Product Designer based in Tokyo. I build digital products that are easy to use and look good.</p></div><div class="md:col-span-1 bg-black rounded-3xl p-6 text-white flex flex-col justify-center items-center text-center shadow-sm"><div class="text-3xl mb-2">🇯🇵</div><div class="font-bold">Tokyo</div><div class="text-xs text-gray-400">UTC+9</div></div><div class="md:col-span-1 bg-orange-500 rounded-3xl p-6 text-white flex flex-col justify-between shadow-sm hover:scale-105 transition cursor-pointer"><div class="text-2xl font-bold">Dribbble</div><div class="self-end text-4xl">↗</div></div><div class="md:col-span-2 bg-blue-100 rounded-3xl p-6 flex items-center gap-4 overflow-hidden relative shadow-sm group"><div class="z-10"><div class="text-xs font-bold text-blue-500 uppercase">Case Study</div><h2 class="text-xl font-bold text-gray-900">Fintech App Redesign</h2></div><div class="absolute right-[-20px] bottom-[-20px] w-32 h-32 bg-blue-500 rounded-full group-hover:scale-125 transition duration-500"></div></div><div class="md:col-span-1 bg-white rounded-3xl p-6 shadow-sm"><h3 class="font-bold text-gray-400 text-xs uppercase mb-4">My Stack</h3><div class="flex flex-wrap gap-2"><span class="px-3 py-1 bg-gray-100 rounded-lg text-sm">Figma</span><span class="px-3 py-1 bg-gray-100 rounded-lg text-sm">React</span><span class="px-3 py-1 bg-gray-100 rounded-lg text-sm">CSS</span></div></div><div class="md:col-span-1 md:row-span-1 bg-lime-400 rounded-3xl p-6 flex flex-col justify-center items-center text-center shadow-sm hover:bg-lime-300 transition cursor-pointer"><div class="font-bold text-gray-900 text-lg">Work with me</div><div class="text-sm text-gray-800">alex@design.com</div></div></div></body></html>`,
+
+            // --- NEW TEMPLATE 6: Modern Shop ---
+            'commerce': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Modern Commerce</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap" rel="stylesheet"><style>body{font-family:'Jost',sans-serif;}</style></head><body class="bg-white text-gray-900"><nav class="flex justify-between items-center p-6 border-b border-gray-100"><div class="text-2xl font-bold tracking-tight">L U M O S</div><div class="space-x-6 text-sm font-medium hidden md:block"><a href="#">Shop</a><a href="#">Collections</a><a href="#">About</a></div><div class="text-sm">Cart (0)</div></nav><header class="relative h-[60vh] bg-gray-100 flex items-center justify-center overflow-hidden"><img src="https://images.unsplash.com/photo-1593032465175-d81f1f2a3449?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover"><div class="absolute inset-0 bg-black/20"></div><div class="relative z-10 text-center text-white"><h1 class="text-5xl md:text-7xl font-bold mb-4">Summer '25</h1><p class="text-lg mb-8">The new minimalist collection is here.</p><button class="px-8 py-3 bg-white text-black font-semibold hover:bg-gray-100 transition">Shop Now</button></div></header><section class="max-w-6xl mx-auto px-6 py-20"><h2 class="text-2xl font-bold mb-10">New Arrivals</h2><div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12"><div class="group cursor-pointer"><div class="h-96 bg-gray-100 mb-4 overflow-hidden relative"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"><button class="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow opacity-0 group-hover:opacity-100 transition translate-y-4 group-hover:translate-y-0">+</button></div><div class="flex justify-between items-start"><div><h3 class="font-medium">Nike Red</h3><p class="text-gray-500 text-sm">Sneakers</p></div><span class="font-medium">$120</span></div></div><div class="group cursor-pointer"><div class="h-96 bg-gray-100 mb-4 overflow-hidden relative"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div><div class="flex justify-between items-start"><div><h3 class="font-medium">Classic Watch</h3><p class="text-gray-500 text-sm">Accessories</p></div><span class="font-medium">$250</span></div></div><div class="group cursor-pointer"><div class="h-96 bg-gray-100 mb-4 overflow-hidden relative"><img src="https://images.unsplash.com/photo-1585386959960-8323fc16f101?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div><div class="flex justify-between items-start"><div><h3 class="font-medium">Urban Shield</h3><p class="text-gray-500 text-sm">Sunglasses</p></div><span class="font-medium">$85</span></div></div></div></section></body></html>`,
+
+            // --- NEW TEMPLATE 7: Gradient Startup ---
+            'startup': `<!DOCTYPE html><html lang="en" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Startup Landing</title><script src="https://cdn.tailwindcss.com"><\/script><style>.text-gradient{background:linear-gradient(to right,#c084fc,#6366f1,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.blob{position:absolute;filter:blur(80px);opacity:0.4;z-index:-1}</style></head><body class="bg-black text-white font-sans overflow-x-hidden relative"><div class="blob bg-purple-600 w-96 h-96 top-0 left-[-100px] rounded-full"></div><div class="blob bg-blue-600 w-96 h-96 bottom-0 right-[-100px] rounded-full"></div><nav class="max-w-6xl mx-auto p-6 flex justify-between items-center backdrop-blur-sm sticky top-0 z-50"><div class="font-bold text-xl">NexusAI</div><button class="px-5 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full text-sm transition">Sign In</button></nav><main class="max-w-4xl mx-auto px-6 py-32 text-center"><span class="inline-block px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm font-medium mb-8">v2.0 is now live 🚀</span><h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-8 leading-tight">Scale your app <br><span class="text-gradient">at lightspeed.</span></h1><p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">The infrastructure platform for modern developers. Deploy in seconds, scale infinitely, pay only for what you use.</p><div class="flex flex-col sm:flex-row justify-center gap-4"><button class="px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition">Start Building</button><button class="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-lg hover:bg-white/5 transition">Read Documentation</button></div></main><section class="max-w-6xl mx-auto px-6 pb-32"><div class="grid grid-cols-1 md:grid-cols-3 gap-8"><div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition"><div class="w-12 h-12 bg-purple-900/50 rounded-lg flex items-center justify-center text-purple-400 mb-6 font-bold text-xl">⚡</div><h3 class="text-xl font-bold mb-2">Instant Deploys</h3><p class="text-gray-400">Push to git and we handle the rest. Live in seconds.</p></div><div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition"><div class="w-12 h-12 bg-blue-900/50 rounded-lg flex items-center justify-center text-blue-400 mb-6 font-bold text-xl">🛡</div><h3 class="text-xl font-bold mb-2">Global Edge</h3><p class="text-gray-400">Low latency worldwide via our edge network.</p></div><div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-500/50 transition"><div class="w-12 h-12 bg-pink-900/50 rounded-lg flex items-center justify-center text-pink-400 mb-6 font-bold text-xl">∞</div><h3 class="text-xl font-bold mb-2">Infinite Scale</h3><p class="text-gray-400">Traffic spikes? No problem. We scale automatically.</p></div></div></section></body></html>`,
+
+            // --- NEW TEMPLATE 8: Neumorphism ---
+            'neo': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Neumorphism UI</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet"><style>body{background-color:#e0e5ec;font-family:'Nunito',sans-serif;color:#4d555f}.neo-out{box-shadow:9px 9px 16px rgb(163,177,198,0.6),-9px -9px 16px rgba(255,255,255,0.5)}.neo-in{box-shadow:inset 6px 6px 10px 0 rgba(163,177,198,0.7),inset -6px -6px 10px 0 rgba(255,255,255,0.8)}.neo-btn{transition:all 0.2s ease}.neo-btn:active{box-shadow:inset 4px 4px 8px rgba(163,177,198,0.7),inset -4px -4px 8px rgba(255,255,255,0.9);transform:translateY(2px)}</style></head><body class="min-h-screen flex items-center justify-center p-6"><div class="w-full max-w-md bg-[#e0e5ec] rounded-[30px] p-8 neo-out"><div class="flex justify-between items-center mb-10"><button class="w-12 h-12 rounded-full neo-out flex items-center justify-center text-gray-500 neo-btn"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button><div class="text-lg font-bold text-gray-600">PLAYING NOW</div><button class="w-12 h-12 rounded-full neo-out flex items-center justify-center text-gray-500 neo-btn"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button></div><div class="w-48 h-48 mx-auto bg-[#e0e5ec] rounded-full neo-out border-[5px] border-[#e0e5ec] flex items-center justify-center mb-8 overflow-hidden"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover opacity-80 rounded-full"></div><div class="text-center mb-10"><h2 class="text-2xl font-bold text-gray-700 mb-1">Ocean Waves</h2><p class="text-gray-500 text-sm">Relaxing Sounds</p></div><div class="flex items-center gap-4 mb-10"><span class="text-xs font-bold text-gray-400">2:14</span><div class="flex-1 h-3 rounded-full neo-in relative"><div class="absolute top-0 left-0 h-full w-1/2 bg-blue-400 rounded-full shadow-md"></div></div><span class="text-xs font-bold text-gray-400">5:30</span></div><div class="flex justify-center items-center gap-8"><button class="w-16 h-16 rounded-full neo-out flex items-center justify-center text-gray-500 neo-btn"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z"/></svg></button><button class="w-20 h-20 rounded-full bg-blue-500 text-white shadow-[6px_6px_12px_rgba(163,177,198,0.6),-6px_-6px_12px_rgba(255,255,255,0.5)] flex items-center justify-center active:shadow-inner active:scale-95 transition"><svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg></button><button class="w-16 h-16 rounded-full neo-out flex items-center justify-center text-gray-500 neo-btn"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M11.555 5.168A1 1 0 0010 6v2.798l-5.445-3.63A1 1 0 003 6v8a1 1 0 001.555.832L10 11.202V14a1 1 0 001.555.832l6-4a1 1 0 000-1.664l-6-4z"/></svg></button></div></div></body></html>`,
+
+            // --- NEW TEMPLATE 9: Editorial Typography ---
+            'editorial': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Editorial Layout</title><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet"><style>body{background-color:#fffbf7;color:#1c1c1c;font-family:'Inter',sans-serif}h1,h2,h3,blockquote{font-family:'Playfair Display',serif}.separator{border-bottom:1px solid #1c1c1c}</style></head><body class="max-w-screen-lg mx-auto p-8"><header class="text-center py-12 separator mb-12"><div class="uppercase tracking-[0.3em] text-xs font-bold mb-4">The Weekly</div><h1 class="text-6xl md:text-8xl italic font-bold mb-6">Chronicle.</h1><div class="flex justify-between items-center text-sm font-bold border-t border-black pt-4 max-w-md mx-auto"><span>VOL. 92</span><span>JANUARY 2026</span><span>$5.00</span></div></header><main class="grid grid-cols-1 md:grid-cols-12 gap-12"><article class="md:col-span-8"><h2 class="text-4xl md:text-5xl font-bold leading-tight mb-6">The Return of Printed Media in the Digital Age</h2><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1000" class="w-full h-96 object-cover grayscale mb-6"><p class="text-lg leading-relaxed mb-6"><span class="text-6xl float-left mr-3 font-serif leading-[0.8]">I</span>n an era dominated by screens, a quiet revolution is taking place. Ink on paper is making a comeback, not as a necessity, but as a luxury. The tactile experience of turning a page has become a coveted escape from the blue light.</p><p class="text-lg leading-relaxed">Publishers are responding with high-quality paper stock, experimental typography, and long-form journalism that demands attention.</p></article><aside class="md:col-span-4 space-y-12"><div class="separator pb-8"><h3 class="text-2xl font-bold mb-4 italic">Trending</h3><ul class="space-y-4 text-sm"><li class="flex gap-4"><span class="text-gray-400">01</span><a href="#" class="hover:underline">Modern Architecture</a></li><li class="flex gap-4"><span class="text-gray-400">02</span><a href="#" class="hover:underline">Slow Food Movement</a></li><li class="flex gap-4"><span class="text-gray-400">03</span><a href="#" class="hover:underline">Analog Photography</a></li></ul></div><div class="bg-black text-[#fffbf7] p-8 text-center"><h3 class="text-3xl italic mb-4">Subscribe</h3><p class="text-sm mb-6 opacity-80">Get the physical edition delivered to your door.</p><button class="w-full border border-[#fffbf7] py-3 uppercase text-xs tracking-widest hover:bg-[#fffbf7] hover:text-black transition">Join Now</button></div></aside></main></body></html>`
+        };
+
+        // ==========================================
+        // 2. METADATA (Configuration for Cards)
+        // ==========================================
         const templates = [
+            {
+                id: 'dashboard',
+                title: 'SaaS Dashboard',
+                desc: 'Dark mode analytics dashboard with sidebar navigation and data charts.',
+                image: 'https://placehold.co/800x600/0f172a/3b82f6?text=SaaS+Dashboard',
+                type: 'App'
+            },
+            {
+                id: 'bento',
+                title: 'Bento Portfolio',
+                desc: 'Trendy, grid-based personal layout inspired by Apple styling.',
+                image: 'https://placehold.co/800x600/f3f4f6/000?text=Bento+Grid',
+                type: 'Personal'
+            },
+            {
+                id: 'startup',
+                title: 'Gradient Startup',
+                desc: 'Modern landing page with blurred glows and glassmorphism header.',
+                image: 'https://placehold.co/800x600/000000/a855f7?text=Startup+SaaS',
+                type: 'Landing'
+            },
+            {
+                id: 'commerce',
+                title: 'Modern Shop',
+                desc: 'Clean e-commerce interface with large hero image and product grid.',
+                image: 'https://placehold.co/800x600/ffffff/111?text=Modern+Shop',
+                type: 'E-Commerce'
+            },
+            {
+                id: 'neo',
+                title: 'Soft Neumorphism',
+                desc: 'Soft UI design with tactile shadows and rounded shapes.',
+                image: 'https://placehold.co/800x600/e0e5ec/9ca3af?text=Neumorphism',
+                type: 'Experimental'
+            },
+            {
+                id: 'editorial',
+                title: 'Editorial News',
+                desc: 'Newspaper-inspired layout with classic serif typography.',
+                image: 'https://placehold.co/800x600/fffbf7/1c1c1c?text=Editorial',
+                type: 'Blog'
+            },
             {
                 id: 'minimal',
                 title: 'Minimal Glass',
                 desc: 'Clean aesthetics with soft shadows and ample whitespace.',
-                image: 'https://placehold.co/800x600/fafafa/171717?text=Minimal+Glass', // Light theme placeholder
-                type: 'Landing',
-                realFile: 'template-minimal.html' // Actual file link
+                image: 'https://placehold.co/800x600/fafafa/171717?text=Minimal+Glass',
+                type: 'Landing'
             },
             {
                 id: 'cyber',
                 title: 'Cyber Punk',
                 desc: 'High contrast dark mode with vibrant neon accents.',
-                image: 'https://placehold.co/800x600/050505/06b6d4?text=Cyber+Punk', // Dark/Neon placeholder
-                type: 'Portfolio',
-                realFile: 'template-cyber.html' // Actual file link
+                image: 'https://placehold.co/800x600/050505/06b6d4?text=Cyber+Punk',
+                type: 'Portfolio'
             },
             {
                 id: 'retro',
                 title: 'Retro Wave',
                 desc: 'Bold borders, serif fonts, and nostalgic 90s vibes.',
-                image: 'https://placehold.co/800x600/e0e7ff/000000?text=Retro+Wave', // Retro placeholder
-                type: 'Blog',
-                realFile: 'template-retro.html' // Actual file link
-            },
-            // Mocks below
-            {
-                id: 'dashboard',
-                title: 'SaaS Dashboard',
-                desc: 'Data-heavy layout with sidebar and widgets.',
-                image: 'https://placehold.co/800x600/1e293b/FFF?text=Dashboard+UI',
-                type: 'App',
-                realFile: null
-            },
-            {
-                id: 'commerce',
-                title: 'E-Commerce Pro',
-                desc: 'Product grid focused layout with cart interactions.',
-                image: 'https://placehold.co/800x600/2f2f2f/FFF?text=Shop+Layout',
-                type: 'Shop',
-                realFile: null
-            },
-            {
-                id: 'mobile',
-                title: 'Mobile App View',
-                desc: 'Optimized for narrow viewports and touch targets.',
-                image: 'https://placehold.co/800x600/4a044e/FFF?text=Mobile+App',
-                type: 'Mobile',
-                realFile: null
+                image: 'https://placehold.co/800x600/e0e7ff/000000?text=Retro+Wave',
+                type: 'Blog'
             }
         ];
 
-        // Mock code for the non-real cards (just to prevent errors if clicked)
-        const mockCode = `<!DOCTYPE html><html class="dark"><body style="background:#111;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;"><h1>Mock Template Preview</h1></body></html>`;
+        // Update count
+        document.getElementById('count-display').innerText = templates.length;
 
-        // DOM Elements
+        // ==========================================
+        // 3. RENDER & DOWNLOAD LOGIC
+        // ==========================================
         const grid = document.getElementById('template-grid');
-        const modal = document.getElementById('preview-modal');
-        const iframe = document.getElementById('preview-frame');
-        const modalTitle = document.getElementById('modal-title');
-        const modalDownloadBtn = document.getElementById('modal-download-btn');
 
-        // Render Grid
         function render() {
             grid.innerHTML = templates.map(t => {
-                // Determine Button Logic based on if it's a real file or a mock
-                const viewButton = t.realFile 
-                    ? `<a href="${t.realFile}" target="_blank" class="px-4 py-2 bg-white text-black text-sm font-medium rounded shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">View Demo</a>`
-                    : `<button onclick="openPreview('${t.id}')" class="px-4 py-2 bg-white text-black text-sm font-medium rounded shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">View Demo</button>`;
-
-                const viewActionBottom = t.realFile
-                    ? `<a href="${t.realFile}" target="_blank" class="flex-1 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded text-sm transition-colors text-center block">View</a>`
-                    : `<button onclick="openPreview('${t.id}')" class="flex-1 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded text-sm transition-colors">View</button>`;
-
-                const downloadActionBottom = t.realFile
-                    ? `<a href="${t.realFile}" download class="flex-1 py-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 rounded text-sm transition-colors flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Code
-                       </a>`
-                    : `<button onclick="triggerDownload('${t.id}')" class="flex-1 py-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 rounded text-sm transition-colors flex items-center justify-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Code
-                       </button>`;
-
+                // Since all templates now have source code embedded, we act as if they are "realFiles"
+                // But we handle the View button to open a generated blob URL to avoid 404s
                 return `
                 <div class="group bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden card-hover flex flex-col h-full">
                     <div class="relative h-48 overflow-hidden bg-zinc-800">
                         <img src="${t.image}" alt="${t.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-[2px]">
-                            ${viewButton}
+                            <button onclick="openLivePreview('${t.id}')" class="px-4 py-2 bg-white text-black text-sm font-medium rounded shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">Live Preview</button>
                         </div>
                     </div>
                     <div class="p-5 flex flex-col flex-grow">
                         <div class="flex justify-between items-start mb-2">
                             <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">${t.title}</h3>
-                            <span class="text-xs px-2 py-1 bg-zinc-800 text-zinc-400 rounded border border-zinc-700">${t.type}</span>
+                            <span class="text-xs px-2 py-1 bg-zinc-800 text-zinc-400 rounded border border-zinc-700 truncate max-w-[80px] text-center">${t.type}</span>
                         </div>
                         <p class="text-sm text-gray-500 mb-6 flex-grow line-clamp-2">${t.desc}</p>
                         <div class="flex gap-2 mt-auto">
-                            ${downloadActionBottom}
-                            ${viewActionBottom}
+                            <button onclick="downloadZip('${t.id}')" id="btn-${t.id}" class="flex-1 py-2 border border-zinc-700 hover:border-zinc-500 text-zinc-300 rounded text-sm transition-colors flex items-center justify-center gap-2 group/btn">
+                                <svg class="w-4 h-4 group-hover/btn:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span>Download Zip</span>
+                            </button>
+                            
+                            <button onclick="openLivePreview('${t.id}')" class="flex-1 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded text-sm transition-colors text-center flex items-center justify-center">
+                                View
+                            </button>
                         </div>
                     </div>
                 </div>
             `}).join('');
         }
 
-        // Modal Logic (Only for mock templates)
-        window.openPreview = (id) => {
-            modalTitle.innerText = templates.find(t => t.id === id)?.title || 'Preview';
+        // Feature: Open Preview in New Tab using Blob (No server needed)
+        function openLivePreview(id) {
+            const code = templateSources[id];
+            if (!code) return alert("Template code missing!");
             
-            // Render mock content
-            const blob = new Blob([mockCode], { type: 'text/html' });
-            iframe.src = URL.createObjectURL(blob);
+            const blob = new Blob([code], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, '_blank');
+        }
+
+        // Logic: Download Zip with JSZip
+        async function downloadZip(id) {
+            const btn = document.getElementById(`btn-${id}`);
+            const originalHTML = btn.innerHTML;
             
-            // Mock download
-            modalDownloadBtn.onclick = () => triggerDownload(id);
+            btn.innerHTML = `<span class="spinner"></span> Packing...`;
+            btn.disabled = true;
 
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        };
+            try {
+                const htmlContent = templateSources[id];
+                if(!htmlContent) throw new Error("Source not found");
 
-        window.closeModal = () => {
-            modal.classList.add('hidden');
-            iframe.src = '';
-            document.body.style.overflow = 'auto';
-        };
+                const zip = new JSZip();
+                const folder = zip.folder(`hn500-${id}`);
+                
+                folder.file("index.html", htmlContent);
+                folder.file("README.md", `# ${id.toUpperCase()} Template\n\nGenerated by HN500.\n\n## Usage\nSimply open index.html in your browser.\n\n## License\nMIT.`);
+                
+                const content = await zip.generateAsync({type: "blob"});
+                
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(content);
+                a.download = `template-${id}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                btn.innerHTML = `<span class="text-green-400 font-bold">✓ Saved</span>`;
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }, 2000);
 
-        // Mock Download Logic (Only for non-real files)
-        window.triggerDownload = (id) => {
-            alert(`Generating mock download for ${id}...`);
-        };
+            } catch (err) {
+                console.error(err);
+                btn.innerHTML = `Error`;
+                setTimeout(() => { btn.innerHTML = originalHTML; btn.disabled = false; }, 2000);
+            }
+        }
 
-        // Init
         render();
-
-        // Close modal on Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
     </script>
 </body>
 </html>
