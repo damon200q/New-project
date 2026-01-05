@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,22 +17,15 @@
                         bg: '#020617',     // Deepest Slate
                         card: '#0f172a',   // Dark Slate
                         accent: '#a855f7', // Neon Purple
-                        accentHover: '#c084fc',
-                        cyan: '#0ea5e9'
+                        cyan: '#22d3ee',   // Cyber Cyan
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         display: ['Orbitron', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace']
                     },
-                    animation: {
-                        'glow': 'glow 3s ease-in-out infinite alternate',
-                    },
-                    keyframes: {
-                        glow: {
-                            '0%': { boxShadow: '0 0 5px #a855f7' },
-                            '100%': { boxShadow: '0 0 20px #a855f7, 0 0 10px #0ea5e9' }
-                        }
+                    backgroundImage: {
+                        'tech-grid': "linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px)"
                     }
                 }
             }
@@ -42,200 +35,255 @@
     <style>
         body {
             background-color: #020617;
-            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%);
             color: #e2e8f0;
             overflow-x: hidden;
         }
 
+        /* Scanline Overlay (Static CRT Effect) */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.15));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+
         /* Glassmorphism */
-        .glass {
-            background: rgba(15, 23, 42, 0.6);
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-card {
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(168, 85, 247, 0.1); /* Purple tint border */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
         }
 
+        /* Neon Glow on Hover */
         .glass-card:hover {
             transform: translateY(-5px);
-            border-color: #a855f7;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.15), inset 0 0 10px rgba(168, 85, 247, 0.05);
         }
-
-        /* Search Input Glow */
-        .search-input:focus {
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
-            border-color: #a855f7;
+        
+        /* Subtle Gradient Background for Main Content */
+        .main-bg {
+            background: radial-gradient(circle at 50% 0%, #0f172a 0%, #020617 80%);
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
 
-        /* Loader */
         .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: inline-block;
+            width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+            border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col font-sans">
+<body class="antialiased min-h-screen flex flex-col font-sans relative">
 
-    <nav class="fixed w-full z-50 top-0 start-0 glass border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 bg-accent/20 border border-accent rounded flex items-center justify-center text-accent font-display font-bold group-hover:bg-accent group-hover:text-white transition-colors">
+    <div class="scanlines"></div>
+
+    <nav class="fixed w-full z-40 top-0 start-0 glass-nav">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 bg-black border border-accent rounded flex items-center justify-center text-accent font-display font-bold text-lg group-hover:bg-accent group-hover:text-black transition-all shadow-[0_0_10px_rgba(168,85,247,0.3)]">
                     H
                 </div>
                 <span class="font-display font-bold text-xl tracking-wider text-white">HN500</span>
             </a>
             
             <div class="hidden md:flex gap-8 font-mono text-sm">
-                <a href="#" class="text-gray-400 hover:text-accent transition-colors">[ HOME ]</a>
-                <a href="#templates" class="text-gray-400 hover:text-accent transition-colors">[ TEMPLATES ]</a>
-                <a href="#about" class="text-gray-400 hover:text-accent transition-colors">[ ABOUT ]</a>
+                <a href="#" class="text-gray-400 hover:text-cyan transition-colors">[ HOME ]</a>
+                <a href="#templates" class="text-gray-400 hover:text-cyan transition-colors">[ TEMPLATES ]</a>
+                <a href="#about" class="text-gray-400 hover:text-cyan transition-colors">[ ABOUT ]</a>
             </div>
             
-            <button class="md:hidden text-gray-400">///</button>
+            <button class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
         </div>
     </nav>
 
-    <section class="relative pt-32 pb-16 px-4 text-center">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-accent/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+    <section class="relative h-[600px] flex items-center justify-center overflow-hidden border-b border-white/5 bg-black">
+        <canvas id="matrix-canvas" class="absolute top-0 left-0 w-full h-full z-0 opacity-40"></canvas>
         
-        <div class="max-w-3xl mx-auto">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-accent/30 bg-accent/5 text-accent text-xs font-mono mb-6">
-                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span> SYSTEM ONLINE v4.0
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#020617] to-transparent z-10"></div>
+
+        <div class="relative z-20 text-center px-4 max-w-4xl mt-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan/30 bg-cyan/5 text-cyan text-xs font-mono mb-6 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-cyan animate-pulse"></span> SYSTEM ONLINE v5.0
             </div>
             
-            <h1 class="text-5xl md:text-7xl font-display font-black mb-6 leading-tight text-white">
-                UI <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-cyan-400">FORGE</span>
+            <h1 class="text-5xl md:text-7xl font-display font-black mb-6 leading-tight text-white drop-shadow-lg">
+                UI <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-accent">NEXUS</span>
             </h1>
             
-            <p class="text-lg text-gray-400 max-w-xl mx-auto mb-10">
-                Next-gen HTML/Tailwind templates for developers. <br>
-                Instant download. Open source.
+            <p class="text-lg text-gray-300 max-w-xl mx-auto mb-10 font-light">
+                Premium, AI-generated HTML templates. <br>
+                <span class="text-cyan font-mono">Clean Code. No Dependencies. Free.</span>
             </p>
 
-            <div class="max-w-lg mx-auto relative group">
-                <div class="absolute -inset-0.5 bg-gradient-to-r from-accent to-cyan-500 rounded-lg blur opacity-30 group-hover:opacity-75 transition duration-1000"></div>
-                <div class="relative flex items-center bg-bg rounded-lg">
+            <div class="max-w-md mx-auto relative group">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-accent to-cyan rounded-lg blur opacity-25 group-hover:opacity-60 transition duration-1000"></div>
+                <div class="relative flex items-center bg-card rounded-lg border border-white/10">
                     <svg class="w-5 h-5 text-gray-500 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <input type="text" id="search-input" placeholder="Search templates (e.g., 'Retro', 'SaaS')..." 
-                        class="w-full bg-transparent text-white px-4 py-4 focus:outline-none font-mono text-sm placeholder-gray-600">
+                    <input type="text" id="search-input" placeholder="Search (e.g., 'Retro', 'Dashboard')..." 
+                        class="w-full bg-transparent text-white px-4 py-4 focus:outline-none font-mono text-sm placeholder-gray-500">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="templates" class="flex-grow max-w-7xl mx-auto px-4 py-12 w-full">
-        <div class="flex justify-between items-end mb-8 border-b border-white/5 pb-4">
-            <h2 class="text-2xl font-display font-bold text-white">DATABASE</h2>
-            <div class="font-mono text-xs text-accent">
-                LOADING: <span id="count-display">0</span> ITEMS
-            </div>
-        </div>
-
-        <div id="template-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
-    </section>
-
-    <section id="about" class="py-20 border-t border-white/5 bg-black/20">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-display font-bold text-white mb-6">ABOUT HN500</h2>
-            <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                HN500 is a curated collection of free, AI-generated UI templates designed for rapid prototyping. 
-                Built with <span class="text-accent">Gemini AI</span> & <span class="text-cyan-400">Vibe Coding</span>.
-                <br>Open source and free for commercial use.
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="https://buymeacoffee.com/your_id" target="_blank" class="px-6 py-3 bg-[#FFDD00] text-black font-bold rounded-lg hover:bg-[#ffea00] transition transform hover:-translate-y-1 shadow-lg flex items-center gap-2">
-                    <span>☕</span> Support Project
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-[#020617] border-t border-white/10 py-12">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
-            
-            <div class="text-center md:text-left">
-                <div class="font-display font-bold text-white text-lg mb-1">HN500</div>
-                <p class="text-gray-500 text-sm">© 2026 HN500 UI - All templates free to use.</p>
+    <div class="main-bg bg-tech-grid bg-[length:40px_40px]">
+        
+        <section id="templates" class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+            <div class="flex justify-between items-end mb-10 border-b border-white/5 pb-4">
+                <h2 class="text-3xl font-display font-bold text-white tracking-wide">
+                    <span class="text-accent">>></span> ARCHIVE
+                </h2>
+                <div class="font-mono text-xs text-gray-500">
+                    COUNT: <span id="count-display" class="text-cyan">0</span>
+                </div>
             </div>
 
-            <div class="text-xs font-mono text-gray-600 border border-white/5 px-4 py-2 rounded-full">
-                Made with <span class="text-accent">Gemini AI</span> & Vibe Coding
-            </div>
+            <div id="template-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+        </section>
 
-            <div class="flex items-center gap-6">
-                <a href="https://buymeacoffee.com/your_id" target="_blank" class="text-gray-400 hover:text-[#FFDD00] transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.216 6.415l-.132-.666c-.119-.596-.385-1.135-.77-1.566-.693-.774-1.745-1.183-3.13-1.183H4.21c-1.849 0-3.21 1.361-3.21 3.21v5.03c0 1.849 1.361 3.21 3.21 3.21h1.597c.307 2.392 2.348 4.225 4.863 4.225h.69c2.515 0 4.556-1.833 4.863-4.225h.215c2.479 0 4.5-2.021 4.5-4.5v-.543c.001-1.396-.464-2.618-1.723-2.992zm-8.216 9.225h-.69c-1.551 0-2.817-1.266-2.817-2.817s1.266-2.817 2.817-2.817h.69c1.551 0 2.817 1.266 2.817 2.817s-1.266 2.817-2.817 2.817zm7.21-6.18c0 1.654-1.346 3-3 3h-.202c-.089-1.579-.762-3.018-1.843-4.103.52-.16 1.09-.247 1.704-.247h.131c1.037 0 1.825.306 2.344.887.288.322.488.726.577 1.173l.065.334.224.956z"/></svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </a>
+        <section id="about" class="py-24 border-t border-white/5 bg-black/40 relative z-10">
+            <div class="max-w-3xl mx-auto px-4 text-center">
+                <h2 class="text-3xl font-display font-bold text-white mb-6">ABOUT HN500</h2>
+                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-light">
+                    HN500 is a specialized collection of free, high-performance UI templates. 
+                    Designed for developers who need a quick, beautiful starting point.
+                    <br><span class="text-gray-600 text-sm mt-2 block">Powered by Gemini AI & Vibe Coding.</span>
+                </p>
+                <div class="flex justify-center">
+                    <a href="https://buymeacoffee.com/your_id" target="_blank" class="px-8 py-4 bg-[#FFDD00] text-black font-bold rounded-xl hover:bg-[#ffea00] transition transform hover:-translate-y-1 shadow-[0_0_20px_rgba(255,221,0,0.3)] flex items-center gap-3 font-mono">
+                        <span>☕</span> Support with Coffee
+                    </a>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
+
+        <footer class="bg-black border-t border-white/10 py-12 relative z-10">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <div class="font-display font-bold text-white text-lg tracking-wider mb-1">HN500</div>
+                    <p class="text-gray-600 text-xs font-mono">© 2026 HN500 UI - Open Source MIT.</p>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-gray-500 hover:text-white transition transform hover:scale-110">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-white transition transform hover:scale-110">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
         // ==========================================
-        // 1. EMBEDDED TEMPLATE CODE DATABASE
+        // 1. MATRIX RAIN (Hero Section Only)
+        // ==========================================
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas to parent height
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const chars = "HN500XYZ01"; 
+        // Lower density: bigger font size
+        const fontSize = 18; 
+        let columns = 0;
+        let drops = [];
+
+        function initMatrix() {
+            columns = Math.floor(canvas.width / fontSize);
+            drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = Math.random() * canvas.height; // Start at random heights
+            }
+        }
+        initMatrix();
+        window.addEventListener('resize', initMatrix);
+
+        function drawMatrix() {
+            // Slower fade effect for ghostly trail (opacity 0.1)
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Light Green/Cyan text, reduced opacity
+            ctx.fillStyle = "rgba(34, 211, 238, 0.4)"; // #22d3ee at 0.4 opacity
+            ctx.font = fontSize + "px 'JetBrains Mono'";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                // Slower reset speed
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.985) {
+                    drops[i] = 0;
+                }
+                // Slower drop speed (increment by less than 1)
+                drops[i] += 0.75; 
+            }
+        }
+        
+        // Slower interval (50ms instead of 33ms)
+        setInterval(drawMatrix, 50);
+
+
+        // ==========================================
+        // 2. TEMPLATE DATA & LOGIC
         // ==========================================
         const sourceCodes = {
             'dashboard': `<!DOCTYPE html><html lang="en" class="dark"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-slate-900 text-slate-200"><div class="flex h-screen"><aside class="w-64 bg-slate-950 border-r border-slate-800 p-6"><div class="text-xl font-bold text-white mb-8">DASH<span class="text-blue-500">.</span></div><nav class="space-y-2"><a href="#" class="block px-4 py-2 bg-blue-600 rounded">Overview</a><a href="#" class="block px-4 py-2 hover:bg-slate-900 rounded">Users</a></nav></aside><main class="flex-1 p-8"><h1 class="text-2xl font-bold text-white mb-6">Overview</h1><div class="grid grid-cols-3 gap-6"><div class="bg-slate-800 p-6 rounded-xl border border-slate-700"><div class="text-slate-400">Revenue</div><div class="text-3xl font-bold text-white">$42k</div></div><div class="bg-slate-800 p-6 rounded-xl border border-slate-700"><div class="text-slate-400">Users</div><div class="text-3xl font-bold text-white">8.2k</div></div></div></main></div></body></html>`,
-            
             'glass': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-gradient-to-br from-indigo-500 to-purple-500 min-h-screen flex items-center justify-center"><div class="bg-white/30 backdrop-blur-xl p-10 rounded-3xl border border-white/20 shadow-xl text-white max-w-md w-full"><h1 class="text-4xl font-bold mb-4">Glass UI</h1><p class="mb-6 opacity-90">Experience the depth of frosted glass aesthetics.</p><button class="w-full py-3 bg-white text-indigo-600 font-bold rounded-xl shadow-lg">Get Started</button></div></body></html>`,
-            
             'neon': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><style>body{background:#000;color:#0ea5e9;font-family:monospace}.glow{box-shadow:0 0 10px #0ea5e9, inset 0 0 10px #0ea5e9}</style></head><body class="h-screen flex items-center justify-center p-4"><div class="border border-cyan-500 p-8 glow max-w-lg w-full relative"><div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400"></div><h1 class="text-4xl font-bold mb-6 tracking-widest text-white shadow-cyan-500 drop-shadow-[0_0_5px_rgba(14,165,233,0.8)]">SYSTEM_READY</h1><p class="mb-8 text-cyan-300">Initializing connection...</p><button class="w-full py-4 bg-cyan-900/30 border border-cyan-500 hover:bg-cyan-500 hover:text-black transition uppercase tracking-widest">Connect</button></div></body></html>`,
-
             'minimal': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-gray-50 flex items-center justify-center min-h-screen p-6"><div class="max-w-2xl bg-white p-12 rounded-2xl shadow-sm text-center"><h1 class="text-5xl font-light text-gray-900 mb-6">Less is More.</h1><p class="text-xl text-gray-500 mb-10">Minimalism is not a lack of something. It’s simply the perfect amount of something.</p><button class="px-8 py-3 bg-black text-white rounded-full hover:scale-105 transition">Explore</button></div></body></html>`,
-
             'retro': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"><style>body{font-family:'Press Start 2P',cursive;background:#1a1a2e}</style></head><body class="h-screen flex flex-col items-center justify-center text-center"><h1 class="text-6xl text-yellow-400 drop-shadow-[4px_4px_0_#c026d3] mb-8 leading-normal">RETRO<br>WAVE</h1><button class="px-6 py-4 bg-pink-600 border-b-4 border-pink-800 text-white hover:translate-y-1 hover:border-b-0 transition-all">START GAME</button></body></html>`,
-
             'neu': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><style>body{background:#e0e5ec}.neu{border-radius:20px;background:#e0e5ec;box-shadow:9px 9px 16px rgb(163,177,198,0.6),-9px -9px 16px rgba(255,255,255,0.5)}</style></head><body class="h-screen flex items-center justify-center"><div class="neu p-10 w-80"><div class="h-40 w-40 rounded-full neu mx-auto mb-8 flex items-center justify-center text-gray-400">IMG</div><h2 class="text-center text-gray-600 font-bold text-xl mb-6">Soft UI</h2><button class="w-full py-3 rounded-full neu text-gray-600 font-bold active:shadow-inner">Press Me</button></div></body></html>`,
-
             'brutal': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-yellow-400 p-8 font-mono"><div class="border-4 border-black bg-white p-8 shadow-[8px_8px_0_0_#000] max-w-2xl mx-auto mt-20"><h1 class="text-6xl font-black mb-6">BRUTAL.</h1><p class="text-xl font-bold mb-6">NO GRADIENTS. NO OPACITY.</p><button class="border-4 border-black px-6 py-3 bg-red-500 text-white font-bold hover:bg-black hover:text-white transition-none">CLICK ME</button></div></body></html>`,
-
             'shop': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-white"><nav class="p-6 flex justify-between font-bold border-b"><span>STORE</span><span>CART (0)</span></nav><header class="h-[60vh] bg-gray-100 flex items-center justify-center"><h1 class="text-6xl font-black">SUMMER SALE</h1></header><div class="grid grid-cols-3 gap-8 p-12"><div class="bg-gray-50 h-64"></div><div class="bg-gray-50 h-64"></div><div class="bg-gray-50 h-64"></div></div></body></html>`,
-
             'academia': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora&display=swap" rel="stylesheet"></head><body class="bg-[#1c1917] text-[#a8a29e] flex items-center justify-center min-h-screen font-['Lora']"><div class="border border-[#44403c] p-12 max-w-2xl text-center"><h1 class="text-5xl font-['Cinzel'] text-[#e7e5e4] mb-6">The Archives</h1><p class="italic mb-8 text-lg">"Knowledge is power."</p><button class="border-b border-[#a8a29e] hover:text-white hover:border-white transition">Enter Library</button></div></body></html>`,
-
             'matrix': `<!DOCTYPE html><html lang="en"><body style="background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden"><canvas id="c" style="position:absolute;top:0;left:0"></canvas><div style="z-index:1;background:rgba(0,0,0,0.8);padding:2rem;border:1px solid #0f0;box-shadow:0 0 10px #0f0"><h1>WAKE UP NEO</h1><button style="background:#000;color:#0f0;border:1px solid #0f0;padding:10px;margin-top:10px;cursor:pointer">FOLLOW</button></div><script>const c=document.getElementById("c"),ctx=c.getContext("2d");c.width=window.innerWidth;c.height=window.innerHeight;const chars="01";const drops=Array(Math.floor(c.width/10)).fill(1);setInterval(()=>{ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#0f0";drops.forEach((y,i)=>{ctx.fillText(chars[Math.floor(Math.random()*2)],i*10,y*10);if(y*10>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++})},33)</script></body></html>`
         };
 
-        // ==========================================
-        // 2. CARD METADATA
-        // ==========================================
         const templates = [
-            { id: 'dashboard', title: 'SaaS Dashboard', desc: 'Dark analytics layout with sidebar.', placeholder: '0f172a/3b82f6?text=SaaS+Dash' },
+            { id: 'dashboard', title: 'SaaS Dashboard', desc: 'Dark analytics layout.', placeholder: '0f172a/3b82f6?text=SaaS+Dash' },
             { id: 'neon', title: 'Neon HUD', desc: 'Futuristic sci-fi interface.', placeholder: '000000/0ea5e9?text=Neon+HUD' },
-            { id: 'glass', title: 'Glassmorphism', desc: 'Frosted glass blurred card effect.', placeholder: '4f46e5/ffffff?text=Glass+UI' },
-            { id: 'minimal', title: 'Minimalist Landing', desc: 'Clean typography and whitespace.', placeholder: 'ffffff/000000?text=Minimal' },
+            { id: 'glass', title: 'Glassmorphism', desc: 'Frosted glass blurred card.', placeholder: '4f46e5/ffffff?text=Glass+UI' },
+            { id: 'minimal', title: 'Minimalist Landing', desc: 'Clean typography.', placeholder: 'ffffff/000000?text=Minimal' },
             { id: 'retro', title: 'Synthwave 80s', desc: 'Pixel font gaming vibe.', placeholder: '1a1a2e/facc15?text=Retro+80s' },
-            { id: 'neu', title: 'Neumorphism', desc: 'Soft tactile shadow design.', placeholder: 'e0e5ec/9ca3af?text=Soft+Neu' },
-            { id: 'brutal', title: 'Neo Brutalism', desc: 'High contrast, bold borders.', placeholder: 'facc15/000000?text=Brutalist' },
+            { id: 'neu', title: 'Neumorphism', desc: 'Soft tactile shadow.', placeholder: 'e0e5ec/9ca3af?text=Soft+Neu' },
+            { id: 'brutal', title: 'Neo Brutalism', desc: 'Bold borders, high contrast.', placeholder: 'facc15/000000?text=Brutalist' },
             { id: 'academia', title: 'Dark Academia', desc: 'Classic literature aesthetic.', placeholder: '1c1917/a8a29e?text=Academia' },
-            { id: 'shop', title: 'Modern Commerce', desc: 'Clean product grid layout.', placeholder: 'f3f4f6/111827?text=Shop+Grid' },
-            { id: 'matrix', title: 'Matrix Rain', desc: 'Canvas digital rain effect.', placeholder: '000000/00ff00?text=Matrix' }
+            { id: 'shop', title: 'Modern Commerce', desc: 'Clean product grid.', placeholder: 'f3f4f6/111827?text=Shop+Grid' },
+            { id: 'matrix', title: 'Matrix Rain', desc: 'Canvas digital rain.', placeholder: '000000/00ff00?text=Matrix' }
         ];
 
         // ==========================================
@@ -249,107 +297,65 @@
             countDisplay.innerText = items.length;
             
             if (items.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 font-mono">NO DATA FOUND // TRY ANOTHER SEARCH</div>`;
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 font-mono">NO RESULTS</div>`;
                 return;
             }
 
             grid.innerHTML = items.map(t => `
-                <div class="glass-card rounded-xl overflow-hidden flex flex-col h-full group relative">
+                <div class="glass-card rounded-xl flex flex-col h-full group">
                     <div class="relative h-48 overflow-hidden bg-bg border-b border-white/5">
-                        <img src="https://placehold.co/800x600/${t.placeholder}" alt="${t.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-[2px]">
-                            <button onclick="openPreview('${t.id}')" class="px-4 py-2 bg-white text-black font-bold text-xs rounded hover:bg-accent hover:text-white transition shadow-lg">
-                                PREVIEW
-                            </button>
+                        <img src="https://placehold.co/800x600/${t.placeholder}" alt="${t.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                             <button onclick="openPreview('${t.id}')" class="px-4 py-1.5 bg-white text-black font-bold text-xs rounded hover:bg-cyan hover:scale-105 transition shadow-lg">PREVIEW</button>
                         </div>
                     </div>
-
                     <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-xl font-display font-bold text-white mb-2 group-hover:text-accent transition-colors">${t.title}</h3>
+                        <h3 class="text-lg font-display font-bold text-white mb-2 group-hover:text-cyan transition-colors">${t.title}</h3>
                         <p class="text-sm text-gray-400 font-mono mb-6 flex-grow leading-relaxed">${t.desc}</p>
-                        
-                        <div class="flex gap-3 mt-auto">
-                            <button onclick="downloadZip('${t.id}')" id="btn-${t.id}" class="flex-1 py-2.5 bg-white/5 border border-white/10 hover:border-accent/50 text-gray-300 rounded font-mono text-xs font-bold transition-all flex items-center justify-center gap-2 group/btn">
-                                <span class="group-hover/btn:text-white">DOWNLOAD .ZIP</span>
-                            </button>
-                            <button onclick="openPreview('${t.id}')" class="px-4 py-2.5 bg-accent/20 text-accent border border-accent/30 hover:bg-accent hover:text-white rounded font-mono text-xs font-bold transition-all">
-                                VIEW
-                            </button>
+                        <div class="flex gap-2 mt-auto">
+                            <button onclick="downloadZip('${t.id}')" id="btn-${t.id}" class="flex-1 py-2 bg-white/5 border border-white/10 hover:border-accent hover:text-accent text-gray-300 rounded text-xs font-mono font-bold transition flex items-center justify-center">DOWNLOAD</button>
+                            <button onclick="openPreview('${t.id}')" class="px-4 py-2 bg-white/5 border border-white/10 hover:border-cyan hover:text-cyan text-gray-300 rounded text-xs font-mono font-bold transition">VIEW</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // ==========================================
-        // 4. FUNCTIONALITY
-        // ==========================================
-        
-        // Search
+        // Search Filter
         searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            const filtered = templates.filter(t => 
-                t.title.toLowerCase().includes(query) || 
-                t.desc.toLowerCase().includes(query)
-            );
-            render(filtered);
+            const q = e.target.value.toLowerCase();
+            render(templates.filter(t => t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)));
         });
 
-        // View (New Tab)
+        // View Logic
         function openPreview(id) {
-            const code = sourceCodes[id];
-            if (!code) return alert("Error: Template source not found.");
-            
-            const blob = new Blob([code], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            window.open(url, '_blank');
+            const blob = new Blob([sourceCodes[id] || '<h1>Error</h1>'], { type: 'text/html' });
+            window.open(URL.createObjectURL(blob), '_blank');
         }
 
-        // Download (JSZip)
+        // Download Logic
         async function downloadZip(id) {
             const btn = document.getElementById(`btn-${id}`);
-            const originalText = btn.innerHTML;
-            
+            const orig = btn.innerHTML;
             btn.innerHTML = `<span class="spinner"></span>`;
             btn.disabled = true;
-
             try {
-                const code = sourceCodes[id];
-                if (!code) throw new Error("No source code");
-
                 const zip = new JSZip();
-                const folder = zip.folder(`hn500-${id}`);
-                folder.file("index.html", code);
-                folder.file("README.md", `# ${id.toUpperCase()} Template\n\nGenerated by HN500.\n\n## Usage\nSimply open index.html in your browser.\n\n## License\nMIT - Free to use.`);
-
-                const content = await zip.generateAsync({type: "blob"});
-                const url = URL.createObjectURL(content);
-                
+                zip.folder(`hn500-${id}`).file("index.html", sourceCodes[id]).file("README.md", `# ${id}`);
+                const content = await zip.generateAsync({type:"blob"});
                 const a = document.createElement("a");
-                a.href = url;
-                a.download = `template-${id}.zip`;
+                a.href = URL.createObjectURL(content);
+                a.download = `${id}.zip`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-
-                btn.innerHTML = `<span class="text-green-400">DONE</span>`;
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 2000);
-            } catch (err) {
-                console.error(err);
-                btn.innerHTML = `ERR`;
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 2000);
-            }
+                btn.innerHTML = `<span class="text-green-400">OK</span>`;
+            } catch(e) { btn.innerHTML = "ERR"; }
+            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500);
         }
 
-        // Initial Render
+        // Init
         render(templates);
-
     </script>
 </body>
 </html>
