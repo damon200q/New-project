@@ -14,16 +14,17 @@
             theme: {
                 extend: {
                     colors: {
-                        bg: '#020617',     // Deepest Slate
-                        card: '#0f172a',   // Dark Slate
-                        accent: '#a855f7', // Neon Purple
-                        cyan: '#22d3ee',   // Cyber Cyan
+                        bg: '#020617',     // 深邃黑蓝
+                        card: '#0f172a',   // 卡片底色
+                        accent: '#a855f7', // 霓虹紫
+                        cyan: '#22d3ee',   // 赛博青
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         display: ['Orbitron', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace']
                     },
+                    // 静态科技网格背景
                     backgroundImage: {
                         'tech-grid': "linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px)"
                     }
@@ -39,26 +40,27 @@
             overflow-x: hidden;
         }
 
-        /* Scanline Overlay (Static CRT Effect) */
+        /* 扫描线效果 (复古CRT感) */
         .scanlines {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.15));
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
             background-size: 100% 4px;
             pointer-events: none;
             z-index: 50;
         }
 
-        /* Glassmorphism */
+        /* 玻璃态导航栏 */
         .glass-nav {
             background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
+        /* 玻璃态卡片 */
         .glass-card {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(8px);
@@ -68,24 +70,25 @@
             overflow: hidden;
         }
 
-        /* Neon Glow on Hover */
+        /* 卡片 Hover 发光特效 */
         .glass-card:hover {
             transform: translateY(-5px);
             border-color: rgba(168, 85, 247, 0.5);
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.15), inset 0 0 10px rgba(168, 85, 247, 0.05);
         }
         
-        /* Subtle Gradient Background for Main Content */
+        /* 内容区背景渐变 */
         .main-bg {
             background: radial-gradient(circle at 50% 0%, #0f172a 0%, #020617 80%);
         }
 
-        /* Scrollbar */
+        /* 滚动条美化 */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #020617; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
 
+        /* 加载动画 */
         .spinner {
             width: 16px; height: 16px;
             border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
@@ -120,7 +123,7 @@
     </nav>
 
     <section class="relative h-[600px] flex items-center justify-center overflow-hidden border-b border-white/5 bg-black">
-        <canvas id="matrix-canvas" class="absolute top-0 left-0 w-full h-full z-0 opacity-40"></canvas>
+        <canvas id="matrix-canvas" class="absolute top-0 left-0 w-full h-full z-0 opacity-30"></canvas>
         
         <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#020617] to-transparent z-10"></div>
 
@@ -202,12 +205,12 @@
 
     <script>
         // ==========================================
-        // 1. MATRIX RAIN (Hero Section Only)
+        // 1. MATRIX RAIN (仅限 Hero 区域)
         // ==========================================
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
-        // Set canvas to parent height
+        // 调整画布大小
         function resizeCanvas() {
             canvas.width = canvas.parentElement.offsetWidth;
             canvas.height = canvas.parentElement.offsetHeight;
@@ -216,7 +219,7 @@
         resizeCanvas();
 
         const chars = "HN500XYZ01"; 
-        // Lower density: bigger font size
+        // 字体调大，密度变低
         const fontSize = 18; 
         let columns = 0;
         let drops = [];
@@ -225,40 +228,41 @@
             columns = Math.floor(canvas.width / fontSize);
             drops = [];
             for (let x = 0; x < columns; x++) {
-                drops[x] = Math.random() * canvas.height; // Start at random heights
+                // 随机起始高度
+                drops[x] = Math.random() * canvas.height; 
             }
         }
         initMatrix();
         window.addEventListener('resize', initMatrix);
 
         function drawMatrix() {
-            // Slower fade effect for ghostly trail (opacity 0.1)
+            // 拖尾效果更淡 (opacity 0.1)
             ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Light Green/Cyan text, reduced opacity
-            ctx.fillStyle = "rgba(34, 211, 238, 0.4)"; // #22d3ee at 0.4 opacity
+            // 浅青色文字，低透明度，不抢眼
+            ctx.fillStyle = "rgba(34, 211, 238, 0.3)"; 
             ctx.font = fontSize + "px 'JetBrains Mono'";
 
             for (let i = 0; i < drops.length; i++) {
                 const text = chars[Math.floor(Math.random() * chars.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-                // Slower reset speed
+                // 降低重置概率，让雨看起来更稀疏
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.985) {
                     drops[i] = 0;
                 }
-                // Slower drop speed (increment by less than 1)
+                // 下落速度变慢
                 drops[i] += 0.75; 
             }
         }
         
-        // Slower interval (50ms instead of 33ms)
+        // 降低刷新率 (50ms)，动画更慢更平滑
         setInterval(drawMatrix, 50);
 
 
         // ==========================================
-        // 2. TEMPLATE DATA & LOGIC
+        // 2. 模板数据与源码库
         // ==========================================
         const sourceCodes = {
             'dashboard': `<!DOCTYPE html><html lang="en" class="dark"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-slate-900 text-slate-200"><div class="flex h-screen"><aside class="w-64 bg-slate-950 border-r border-slate-800 p-6"><div class="text-xl font-bold text-white mb-8">DASH<span class="text-blue-500">.</span></div><nav class="space-y-2"><a href="#" class="block px-4 py-2 bg-blue-600 rounded">Overview</a><a href="#" class="block px-4 py-2 hover:bg-slate-900 rounded">Users</a></nav></aside><main class="flex-1 p-8"><h1 class="text-2xl font-bold text-white mb-6">Overview</h1><div class="grid grid-cols-3 gap-6"><div class="bg-slate-800 p-6 rounded-xl border border-slate-700"><div class="text-slate-400">Revenue</div><div class="text-3xl font-bold text-white">$42k</div></div><div class="bg-slate-800 p-6 rounded-xl border border-slate-700"><div class="text-slate-400">Users</div><div class="text-3xl font-bold text-white">8.2k</div></div></div></main></div></body></html>`,
