@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="dark" style="scroll-behavior: smooth;">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HN500 | UI Templates</title>
+    <title>HN500 | Cyberpunk UI Forge</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -14,24 +13,35 @@
             theme: {
                 extend: {
                     colors: {
-                        bg: '#020617',     // 深邃黑蓝
-                        card: '#0f172a',   // 卡片底色
-                        accent: '#a855f7', // 霓虹紫
-                        cyan: '#22d3ee',   // 赛博青
+                        cyber: {
+                            dark: '#020617', // Deeper dark
+                            slate: '#0f172a',
+                            cyan: '#0ea5e9', // Primary Accent
+                            purple: '#d946ef', // Secondary Accent
+                            glass: 'rgba(15, 23, 42, 0.6)'
+                        }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Orbitron', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
+                        mono: ['Share Tech Mono', 'monospace'],
+                        display: ['Orbitron', 'sans-serif']
                     },
-                    // 静态科技网格背景
-                    backgroundImage: {
-                        'tech-grid': "linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px)"
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #0ea5e9' },
+                            '100%': { boxShadow: '0 0 20px #0ea5e9, 0 0 10px #d946ef' }
+                        }
                     }
                 }
             }
         }
     </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
         body {
@@ -40,268 +50,407 @@
             overflow-x: hidden;
         }
 
-        /* 扫描线效果 (保留一点点复古质感，静态的) */
+        /* CRT Scanline Effect */
         .scanlines {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
             background-size: 100% 4px;
             pointer-events: none;
-            z-index: 50;
+            z-index: 9999;
+            opacity: 0.15;
         }
 
-        /* 玻璃态导航栏 */
-        .glass-nav {
-            background: rgba(2, 6, 23, 0.85);
+        /* Cyber Glass Card */
+        .cyber-card {
+            background: rgba(15, 23, 42, 0.4);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 玻璃态卡片 */
-        .glass-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
+        .cyber-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #0ea5e9;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.3), inset 0 0 20px rgba(14, 165, 233, 0.1);
+            background: rgba(15, 23, 42, 0.7);
         }
 
-        /* 卡片 Hover 发光特效 */
-        .glass-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(168, 85, 247, 0.5);
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.15), inset 0 0 10px rgba(168, 85, 247, 0.05);
+        /* Typography Glows */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.7), 0 0 20px rgba(14, 165, 233, 0.5);
         }
-        
-        /* 内容区背景渐变 */
-        .main-bg {
-            background: radial-gradient(circle at 50% 0%, #0f172a 0%, #020617 80%);
+        .text-glow-purple {
+            text-shadow: 0 0 10px rgba(217, 70, 239, 0.7);
         }
 
-        /* 滚动条美化 */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
-
-        /* 加载动画 */
-        .spinner {
-            width: 16px; height: 16px;
-            border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
-            border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block;
+        ::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 3px; }
+        
+        /* Loader */
+        .cyber-loader {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #0ea5e9;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col font-sans relative">
+<body class="antialiased min-h-screen flex flex-col relative font-sans">
 
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
     <div class="scanlines"></div>
 
-    <nav class="fixed w-full z-40 top-0 start-0 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav class="fixed w-full z-50 top-0 start-0 border-b border-white/5 bg-cyber-dark/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3 group">
-                <div class="w-9 h-9 bg-black border border-accent rounded flex items-center justify-center text-accent font-display font-bold text-lg group-hover:bg-accent group-hover:text-black transition-all shadow-[0_0_10px_rgba(168,85,247,0.3)]">
-                    H
+                <div class="w-10 h-10 bg-cyber-cyan/10 border border-cyber-cyan/50 rounded flex items-center justify-center group-hover:bg-cyber-cyan/20 transition-all shadow-[0_0_15px_rgba(14,165,233,0.3)]">
+                    <span class="text-cyber-cyan font-display font-bold text-xl">H</span>
                 </div>
-                <span class="font-display font-bold text-xl tracking-wider text-white">HN500</span>
+                <span class="font-display font-bold text-xl tracking-wider text-white group-hover:text-cyber-cyan transition-colors">HN500</span>
             </a>
             
-            <div class="hidden md:flex gap-8 font-mono text-sm">
-                <a href="#" class="text-gray-400 hover:text-cyan transition-colors">[ HOME ]</a>
-                <a href="#templates" class="text-gray-400 hover:text-cyan transition-colors">[ TEMPLATES ]</a>
-                <a href="#about" class="text-gray-400 hover:text-cyan transition-colors">[ ABOUT ]</a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#" class="text-sm font-mono text-cyan-400 hover:text-white transition-colors">[ SYSTEM_LOGS ]</a>
+                <a href="#" class="text-sm font-mono text-cyan-400 hover:text-white transition-colors">[ REPO ]</a>
+                <a href="#" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-500/30 text-yellow-400 rounded hover:border-yellow-400 transition-all font-mono text-sm shadow-[0_0_10px_rgba(234,179,8,0.1)] hover:shadow-[0_0_15px_rgba(234,179,8,0.3)]">
+                    <span>⚡</span> BUY_COFFEE
+                </a>
             </div>
-            
-            <button class="md:hidden text-white">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
         </div>
     </nav>
 
-    <section class="relative h-[500px] flex items-center justify-center overflow-hidden border-b border-white/5 bg-[#020617]">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#020617] to-transparent z-10"></div>
-
-        <div class="relative z-20 text-center px-4 max-w-4xl mt-10">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan/30 bg-cyan/5 text-cyan text-xs font-mono mb-6 backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-cyan"></span> SYSTEM ONLINE
+    <section class="relative pt-40 pb-20 px-4 text-center z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyber-cyan/30 bg-cyber-cyan/5 text-cyber-cyan text-xs font-mono mb-8 tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span> SYSTEM ONLINE // V3.0
             </div>
-            
-            <h1 class="text-5xl md:text-7xl font-display font-black mb-6 leading-tight text-white drop-shadow-lg">
-                UI <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan to-accent">NEXUS</span>
+            <h1 class="text-5xl md:text-8xl font-display font-black mb-6 leading-tight text-white tracking-tight">
+                UI <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 text-glow">FORGE</span>
             </h1>
-            
-            <p class="text-lg text-gray-300 max-w-xl mx-auto mb-10 font-light">
-                Premium, AI-generated HTML templates. <br>
-                <span class="text-cyan font-mono">Clean Code. No Dependencies. Free.</span>
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light">
+                Procedurally generated interfaces for the next generation of web apps. <br>
+                <span class="text-cyber-cyan font-mono">Download source. Deploy instantly.</span>
             </p>
-
-            <div class="max-w-md mx-auto relative group">
-                <div class="absolute -inset-0.5 bg-gradient-to-r from-accent to-cyan rounded-lg blur opacity-25 group-hover:opacity-60 transition duration-1000"></div>
-                <div class="relative flex items-center bg-card rounded-lg border border-white/10">
-                    <svg class="w-5 h-5 text-gray-500 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <input type="text" id="search-input" placeholder="Search (e.g., 'Retro', 'Dashboard')..." 
-                        class="w-full bg-transparent text-white px-4 py-4 focus:outline-none font-mono text-sm placeholder-gray-500">
+            
+            <div class="max-w-2xl mx-auto bg-slate-900/60 backdrop-blur-md border border-white/10 p-2 rounded-xl flex flex-col md:flex-row gap-2 shadow-2xl">
+                <div class="relative flex-grow">
+                    <svg class="absolute left-4 top-3.5 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="search-input" placeholder="Search templates (e.g., 'Retro', 'Dashboard')..." 
+                        class="w-full bg-transparent text-white pl-12 pr-4 py-3 rounded-lg focus:outline-none focus:bg-white/5 transition-colors placeholder-gray-600 font-mono text-sm">
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-2 md:pb-0 px-2 no-scrollbar" id="category-filters">
+                    <button onclick="filterCat('all')" class="px-4 py-2 bg-cyber-cyan text-black font-bold text-sm rounded-lg whitespace-nowrap hover:shadow-[0_0_15px_#0ea5e9] transition-all">ALL</button>
+                    <button onclick="filterCat('Cyberpunk')" class="px-4 py-2 bg-slate-800 border border-white/10 text-gray-300 text-sm rounded-lg whitespace-nowrap hover:text-white hover:border-cyber-cyan/50 transition-all">CYBER</button>
+                    <button onclick="filterCat('Minimal')" class="px-4 py-2 bg-slate-800 border border-white/10 text-gray-300 text-sm rounded-lg whitespace-nowrap hover:text-white hover:border-cyber-cyan/50 transition-all">MINIMAL</button>
+                    <button onclick="filterCat('Retro')" class="px-4 py-2 bg-slate-800 border border-white/10 text-gray-300 text-sm rounded-lg whitespace-nowrap hover:text-white hover:border-cyber-cyan/50 transition-all">RETRO</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="main-bg bg-tech-grid bg-[length:40px_40px]">
-        
-        <section id="templates" class="max-w-7xl mx-auto px-6 py-20 relative z-10">
-            <div class="flex justify-between items-end mb-10 border-b border-white/5 pb-4">
-                <h2 class="text-3xl font-display font-bold text-white tracking-wide">
-                    <span class="text-accent">>></span> ARCHIVE
+    <section class="flex-grow max-w-[1400px] mx-auto px-6 py-12 w-full z-10">
+        <div class="flex justify-between items-end mb-8 border-b border-white/10 pb-4">
+            <div>
+                <h2 class="text-2xl font-display font-bold text-white flex items-center gap-2">
+                    <span class="text-cyber-cyan">>></span> DATABASE
                 </h2>
-                <div class="font-mono text-xs text-gray-500">
-                    COUNT: <span id="count-display" class="text-cyan">0</span>
-                </div>
             </div>
-
-            <div id="template-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
-        </section>
-
-        <section id="about" class="py-24 border-t border-white/5 bg-black/40 relative z-10">
-            <div class="max-w-3xl mx-auto px-4 text-center">
-                <h2 class="text-3xl font-display font-bold text-white mb-6">ABOUT HN500</h2>
-                <p class="text-gray-400 text-lg leading-relaxed mb-10 font-light">
-                    HN500 is a specialized collection of free, high-performance UI templates. 
-                    Designed for developers who need a quick, beautiful starting point.
-                    <br><span class="text-gray-600 text-sm mt-2 block">Powered by Gemini AI & Vibe Coding.</span>
-                </p>
-                <div class="flex justify-center">
-                    <a href="https://buymeacoffee.com/your_id" target="_blank" class="px-8 py-4 bg-[#FFDD00] text-black font-bold rounded-xl hover:bg-[#ffea00] transition transform hover:-translate-y-1 shadow-[0_0_20px_rgba(255,221,0,0.3)] flex items-center gap-3 font-mono">
-                        <span>☕</span> Support with Coffee
-                    </a>
-                </div>
+            <div class="font-mono text-xs text-cyber-cyan">
+                LOADING... <span id="count-display">0</span> ITEMS
             </div>
-        </section>
+        </div>
 
-        <footer class="bg-black border-t border-white/10 py-12 relative z-10">
-            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="text-center md:text-left">
-                    <div class="font-display font-bold text-white text-lg tracking-wider mb-1">HN500</div>
-                    <p class="text-gray-600 text-xs font-mono">© 2026 HN500 UI - Open Source MIT.</p>
-                </div>
-
-                <div class="flex items-center gap-6">
-                    <a href="#" class="text-gray-500 hover:text-white transition transform hover:scale-110">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-white transition transform hover:scale-110">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    </a>
-                </div>
+        <div id="template-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             </div>
-        </footer>
-    </div>
+    </section>
+
+    <footer class="border-t border-white/5 bg-black/80 py-12 mt-20 relative z-10 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-gray-500 text-sm font-mono">
+                &copy; 2026 HN500 SYSTEMS.
+            </div>
+            <div class="flex gap-6 font-mono text-xs">
+                <a href="#" class="text-gray-500 hover:text-cyber-cyan transition-colors">GITHUB</a>
+                <a href="#" class="text-gray-500 hover:text-cyber-cyan transition-colors">TWITTER</a>
+                <a href="#" class="text-gray-500 hover:text-cyber-cyan transition-colors">LICENSE</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // ==========================================
-        // 1. 模板数据与源码库
+        // 1. TEMPLATE GENERATOR (EMBEDDED HTML)
         // ==========================================
         const sourceCodes = {
-            'dashboard': `<!DOCTYPE html><html lang="en" class="dark"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-slate-900 text-slate-200"><div class="flex h-screen"><aside class="w-64 bg-slate-950 border-r border-slate-800 p-6"><div class="text-xl font-bold text-white mb-8">DASH<span class="text-blue-500">.</span></div><nav class="space-y-2"><a href="#" class="block px-4 py-2 bg-blue-600 rounded">Overview</a><a href="#" class="block px-4 py-2 hover:bg-slate-900 rounded">Users</a></nav></aside><main class="flex-1 p-8"><h1 class="text-2xl font-bold text-white mb-6">Overview</h1><div class="grid grid-cols-3 gap-6"><div class="bg-slate-800 p-6 rounded-xl border border-slate-700"><div class="text-slate-400">Revenue</div><div class="text-3xl font-bold text-white">$42k</div></div><div class="bg-slate-800 p-6 rounded-xl border border-slate-700"><div class="text-slate-400">Users</div><div class="text-3xl font-bold text-white">8.2k</div></div></div></main></div></body></html>`,
-            'glass': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-gradient-to-br from-indigo-500 to-purple-500 min-h-screen flex items-center justify-center"><div class="bg-white/30 backdrop-blur-xl p-10 rounded-3xl border border-white/20 shadow-xl text-white max-w-md w-full"><h1 class="text-4xl font-bold mb-4">Glass UI</h1><p class="mb-6 opacity-90">Experience the depth of frosted glass aesthetics.</p><button class="w-full py-3 bg-white text-indigo-600 font-bold rounded-xl shadow-lg">Get Started</button></div></body></html>`,
-            'neon': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><style>body{background:#000;color:#0ea5e9;font-family:monospace}.glow{box-shadow:0 0 10px #0ea5e9, inset 0 0 10px #0ea5e9}</style></head><body class="h-screen flex items-center justify-center p-4"><div class="border border-cyan-500 p-8 glow max-w-lg w-full relative"><div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400"></div><h1 class="text-4xl font-bold mb-6 tracking-widest text-white shadow-cyan-500 drop-shadow-[0_0_5px_rgba(14,165,233,0.8)]">SYSTEM_READY</h1><p class="mb-8 text-cyan-300">Initializing connection...</p><button class="w-full py-4 bg-cyan-900/30 border border-cyan-500 hover:bg-cyan-500 hover:text-black transition uppercase tracking-widest">Connect</button></div></body></html>`,
-            'minimal': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-gray-50 flex items-center justify-center min-h-screen p-6"><div class="max-w-2xl bg-white p-12 rounded-2xl shadow-sm text-center"><h1 class="text-5xl font-light text-gray-900 mb-6">Less is More.</h1><p class="text-xl text-gray-500 mb-10">Minimalism is not a lack of something. It’s simply the perfect amount of something.</p><button class="px-8 py-3 bg-black text-white rounded-full hover:scale-105 transition">Explore</button></div></body></html>`,
-            'retro': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"><style>body{font-family:'Press Start 2P',cursive;background:#1a1a2e}</style></head><body class="h-screen flex flex-col items-center justify-center text-center"><h1 class="text-6xl text-yellow-400 drop-shadow-[4px_4px_0_#c026d3] mb-8 leading-normal">RETRO<br>WAVE</h1><button class="px-6 py-4 bg-pink-600 border-b-4 border-pink-800 text-white hover:translate-y-1 hover:border-b-0 transition-all">START GAME</button></body></html>`,
-            'neu': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><style>body{background:#e0e5ec}.neu{border-radius:20px;background:#e0e5ec;box-shadow:9px 9px 16px rgb(163,177,198,0.6),-9px -9px 16px rgba(255,255,255,0.5)}</style></head><body class="h-screen flex items-center justify-center"><div class="neu p-10 w-80"><div class="h-40 w-40 rounded-full neu mx-auto mb-8 flex items-center justify-center text-gray-400">IMG</div><h2 class="text-center text-gray-600 font-bold text-xl mb-6">Soft UI</h2><button class="w-full py-3 rounded-full neu text-gray-600 font-bold active:shadow-inner">Press Me</button></div></body></html>`,
-            'brutal': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-yellow-400 p-8 font-mono"><div class="border-4 border-black bg-white p-8 shadow-[8px_8px_0_0_#000] max-w-2xl mx-auto mt-20"><h1 class="text-6xl font-black mb-6">BRUTAL.</h1><p class="text-xl font-bold mb-6">NO GRADIENTS. NO OPACITY.</p><button class="border-4 border-black px-6 py-3 bg-red-500 text-white font-bold hover:bg-black hover:text-white transition-none">CLICK ME</button></div></body></html>`,
-            'shop': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-white"><nav class="p-6 flex justify-between font-bold border-b"><span>STORE</span><span>CART (0)</span></nav><header class="h-[60vh] bg-gray-100 flex items-center justify-center"><h1 class="text-6xl font-black">SUMMER SALE</h1></header><div class="grid grid-cols-3 gap-8 p-12"><div class="bg-gray-50 h-64"></div><div class="bg-gray-50 h-64"></div><div class="bg-gray-50 h-64"></div></div></body></html>`,
-            'academia': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lora&display=swap" rel="stylesheet"></head><body class="bg-[#1c1917] text-[#a8a29e] flex items-center justify-center min-h-screen font-['Lora']"><div class="border border-[#44403c] p-12 max-w-2xl text-center"><h1 class="text-5xl font-['Cinzel'] text-[#e7e5e4] mb-6">The Archives</h1><p class="italic mb-8 text-lg">"Knowledge is power."</p><button class="border-b border-[#a8a29e] hover:text-white hover:border-white transition">Enter Library</button></div></body></html>`,
-            'matrix': `<!DOCTYPE html><html lang="en"><body style="background:#000;color:#0f0;font-family:monospace;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden"><canvas id="c" style="position:absolute;top:0;left:0"></canvas><div style="z-index:1;background:rgba(0,0,0,0.8);padding:2rem;border:1px solid #0f0;box-shadow:0 0 10px #0f0"><h1>WAKE UP NEO</h1><button style="background:#000;color:#0f0;border:1px solid #0f0;padding:10px;margin-top:10px;cursor:pointer">FOLLOW</button></div><script>const c=document.getElementById("c"),ctx=c.getContext("2d");c.width=window.innerWidth;c.height=window.innerHeight;const chars="01";const drops=Array(Math.floor(c.width/10)).fill(1);setInterval(()=>{ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#0f0";drops.forEach((y,i)=>{ctx.fillText(chars[Math.floor(Math.random()*2)],i*10,y*10);if(y*10>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++})},33)</script></body></html>`
+            'neumorphism': `<!DOCTYPE html><html lang="en"><body style="background:#e0e5ec;display:flex;justify-content:center;align-items:center;min-height:100vh;font-family:sans-serif;color:#4d555f"><div style="padding:40px;border-radius:30px;background:#e0e5ec;box-shadow:20px 20px 60px #bebebe,-20px -20px 60px #ffffff;width:300px"><h2 style="margin-bottom:20px">Soft UI</h2><button style="border:none;width:100%;padding:15px;border-radius:50px;background:#e0e5ec;box-shadow:5px 5px 10px #bebebe,-5px -5px 10px #ffffff;color:#4d555f;font-weight:bold;cursor:pointer">Press Me</button></div></body></html>`,
+            
+            'vaporwave': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Vibur&display=swap" rel="stylesheet"></head><body class="min-h-screen bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400 flex items-center justify-center overflow-hidden"><div class="text-center relative"><h1 class="text-9xl text-white font-['Vibur'] drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)] transform -rotate-6">AESTHETIC</h1><div class="mt-8 bg-white/20 backdrop-blur border border-white/40 p-6 rounded-none shadow-xl max-w-md mx-auto transform rotate-2"><h2 class="text-2xl font-bold text-white mb-2 uppercase tracking-widest">Windows 95</h2><p class="text-white/80">Digital dreams in low fidelity.</p><button class="mt-4 px-6 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold uppercase shadow-lg hover:scale-105 transition">Start</button></div></div></body></html>`,
+            
+            'brutalist': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><style>body{font-family:'Courier New',monospace;background:#f0f0f0}</style></head><body class="p-8"><div class="border-4 border-black bg-white p-8 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] max-w-2xl mx-auto mt-20"><h1 class="text-6xl font-black uppercase mb-6 border-b-4 border-black pb-4">Raw.Bold.</h1><p class="text-xl mb-6 font-bold">NO GRADIENTS. NO OPACITY. JUST CONTENT.</p><div class="flex gap-4"><button class="border-2 border-black px-6 py-3 hover:bg-black hover:text-white transition-colors font-bold uppercase">Accept</button><button class="bg-red-500 border-2 border-black px-6 py-3 text-white hover:bg-red-600 transition-colors font-bold uppercase">Decline</button></div></div></body></html>`,
+            
+            'dark-academia': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital@0;1&display=swap" rel="stylesheet"></head><body class="bg-[#1c1917] text-[#a8a29e] font-['Lora'] min-h-screen flex items-center justify-center p-6"><div class="max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 bg-[#292524] shadow-2xl overflow-hidden rounded-sm"><div class="p-12 flex flex-col justify-center border-r border-[#44403c]"><span class="text-xs uppercase tracking-[0.3em] text-[#78716c] mb-4">The Collection</span><h1 class="text-4xl font-['Cinzel'] text-[#e7e5e4] mb-6">History & <br>Literature</h1><p class="italic mb-8 opacity-80">"We are all in the gutter, but some of us are looking at the stars."</p><button class="self-start text-[#e7e5e4] border-b border-[#78716c] pb-1 hover:border-[#e7e5e4] transition">Read Volume I</button></div><div class="bg-[#44403c] relative"><img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=800" class="absolute inset-0 w-full h-full object-cover opacity-60 grayscale mix-blend-overlay"></div></div></body></html>`,
+            
+            'futuristic-neon': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;900&display=swap" rel="stylesheet"></head><body class="bg-black text-cyan-400 font-['Orbitron'] min-h-screen p-8 flex flex-col items-center justify-center bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"><div class="relative group"><div class="absolute -inset-1 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div><div class="relative px-10 py-10 bg-gray-900 ring-1 ring-gray-900/5 rounded-lg leading-none flex items-top justify-start space-x-6"><div class="space-y-4 text-center"><h1 class="text-5xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 font-bold">HUD INTERFACE</h1><div class="flex gap-4 justify-center mt-6"><div class="w-24 h-24 border-2 border-cyan-500 rounded-full flex items-center justify-center text-2xl shadow-[0_0_15px_#06b6d4]">87%</div><div class="w-24 h-24 border-2 border-purple-500 rounded-full flex items-center justify-center text-2xl shadow-[0_0_15px_#a855f7]">PWR</div></div><button class="mt-8 px-8 py-2 border border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-black transition uppercase tracking-widest">Initialize</button></div></div></div></body></html>`,
+            
+            'kawaii': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet"></head><body class="bg-pink-50 font-['Fredoka'] min-h-screen flex items-center justify-center"><div class="bg-white p-8 rounded-[40px] shadow-[0_20px_40px_rgba(249,168,212,0.4)] max-w-sm text-center border-4 border-pink-200"><div class="w-32 h-32 bg-pink-100 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl">🐱</div><h1 class="text-3xl text-gray-700 font-bold mb-2">Hello Friend!</h1><p class="text-gray-400 mb-6">Everything is super cute today.</p><button class="w-full py-4 bg-pink-400 text-white rounded-2xl font-bold hover:bg-pink-500 transition shadow-lg transform hover:-translate-y-1">Let's Play!</button></div></body></html>`,
+            
+            'minimal-corp': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"></head><body class="font-['Inter'] text-slate-800 bg-white"><nav class="border-b border-gray-100 px-8 py-4 flex justify-between items-center"><div class="font-bold text-blue-600">Acme Inc.</div><div class="space-x-6 text-sm text-gray-500"><a href="#" class="hover:text-blue-600">Product</a><a href="#" class="hover:text-blue-600">Solutions</a><a href="#" class="hover:text-blue-600">Pricing</a></div><button class="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700">Get Started</button></nav><main class="max-w-4xl mx-auto text-center py-20 px-4"><h1 class="text-5xl font-bold tracking-tight text-slate-900 mb-6">Simplify your workflow.</h1><p class="text-xl text-slate-500 mb-10 max-w-2xl mx-auto">The all-in-one platform for modern teams to build better products faster.</p><div class="flex justify-center gap-4"><button class="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">Start Free Trial</button><button class="px-8 py-3 bg-gray-50 text-slate-700 rounded-lg font-medium hover:bg-gray-100">Contact Sales</button></div></main></body></html>`,
+            
+            'glass-blue': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script></head><body class="bg-gradient-to-tr from-blue-400 to-emerald-400 min-h-screen flex items-center justify-center p-4"><div class="w-full max-w-md bg-white/30 backdrop-blur-xl border border-white/40 p-8 rounded-3xl shadow-2xl"><div class="h-2 w-20 bg-white/50 rounded-full mb-8"></div><h1 class="text-4xl font-bold text-white mb-4">Glass UI</h1><p class="text-white/80 mb-8">A beautiful translucent card effect using backdrop-filter.</p><div class="grid grid-cols-2 gap-4"><div class="bg-white/20 p-4 rounded-2xl text-white text-center"><h5>Balance</h5><p class="font-bold text-xl">$4,200</p></div><div class="bg-white/20 p-4 rounded-2xl text-white text-center"><h5>Growth</h5><p class="font-bold text-xl">+12%</p></div></div><button class="mt-8 w-full py-4 bg-white text-blue-500 font-bold rounded-xl hover:bg-blue-50 transition">View Details</button></div></body></html>`,
+            
+            'retro-80s': `<!DOCTYPE html><html lang="en"><head><script src="https://cdn.tailwindcss.com"><\/script><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"></head><body class="bg-slate-900 min-h-screen overflow-hidden relative"><div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-purple-900/50 to-transparent"></div><div class="grid-floor absolute bottom-0 w-full h-64" style="background-image: linear-gradient(rgba(255, 0, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 255, 0.3) 1px, transparent 1px); background-size: 40px 40px; transform: perspective(500px) rotateX(60deg); transform-origin: bottom;"></div><div class="relative z-10 flex flex-col items-center justify-center h-screen"><h1 class="text-6xl md:text-8xl text-transparent bg-clip-text bg-gradient-to-b from-yellow-300 to-red-500 font-['Press_Start_2P'] drop-shadow-[4px_4px_0_rgba(0,0,0,1)] text-center leading-tight mb-8">MIAMI<br>NIGHTS</h1><button class="px-8 py-4 bg-yellow-400 border-b-8 border-yellow-600 text-purple-900 font-bold font-['Press_Start_2P'] hover:translate-y-1 hover:border-b-4 transition-all">INSERT COIN</button></div></body></html>`,
+            
+            'matrix': `<!DOCTYPE html><html lang="en"><head><style>body{margin:0;overflow:hidden;background:black;font-family:monospace;color:#0f0}canvas{display:block}</style></head><body><canvas id="c"></canvas><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:black;padding:20px;border:1px solid #0f0;box-shadow:0 0 20px #0f0"><h1 style="margin:0 0 10px 0">WAKE UP, NEO.</h1><p>The Matrix has you.</p><button style="background:#0f0;color:black;border:none;padding:10px 20px;font-family:monospace;font-weight:bold;cursor:pointer;margin-top:10px">FOLLOW THE RABBIT</button></div><script>const c=document.getElementById("c");const ctx=c.getContext("2d");c.width=window.innerWidth;c.height=window.innerHeight;const chars="01";const font_size=14;const columns=c.width/font_size;const drops=[];for(let x=0;x<columns;x++)drops[x]=1;function draw(){ctx.fillStyle="rgba(0, 0, 0, 0.05)";ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle="#0F0";ctx.font=font_size+"px arial";for(let i=0;i<drops.length;i++){const text=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(text,i*font_size,drops[i]*font_size);if(drops[i]*font_size>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++}}setInterval(draw,33);<\/script></body></html>`
         };
 
+        // ==========================================
+        // 2. TEMPLATE METADATA
+        // ==========================================
         const templates = [
-            { id: 'dashboard', title: 'SaaS Dashboard', desc: 'Dark analytics layout.', placeholder: '0f172a/3b82f6?text=SaaS+Dash' },
-            { id: 'neon', title: 'Neon HUD', desc: 'Futuristic sci-fi interface.', placeholder: '000000/0ea5e9?text=Neon+HUD' },
-            { id: 'glass', title: 'Glassmorphism', desc: 'Frosted glass blurred card.', placeholder: '4f46e5/ffffff?text=Glass+UI' },
-            { id: 'minimal', title: 'Minimalist Landing', desc: 'Clean typography.', placeholder: 'ffffff/000000?text=Minimal' },
-            { id: 'retro', title: 'Synthwave 80s', desc: 'Pixel font gaming vibe.', placeholder: '1a1a2e/facc15?text=Retro+80s' },
-            { id: 'neu', title: 'Neumorphism', desc: 'Soft tactile shadow.', placeholder: 'e0e5ec/9ca3af?text=Soft+Neu' },
-            { id: 'brutal', title: 'Neo Brutalism', desc: 'Bold borders, high contrast.', placeholder: 'facc15/000000?text=Brutalist' },
-            { id: 'academia', title: 'Dark Academia', desc: 'Classic literature aesthetic.', placeholder: '1c1917/a8a29e?text=Academia' },
-            { id: 'shop', title: 'Modern Commerce', desc: 'Clean product grid.', placeholder: 'f3f4f6/111827?text=Shop+Grid' },
-            { id: 'matrix', title: 'Matrix Rain', desc: 'Canvas digital rain.', placeholder: '000000/00ff00?text=Matrix' }
+            { id: 'futuristic-neon', title: 'Neon HUD', category: 'Cyberpunk', desc: 'High-tech sci-fi interface with glowing borders.', placeholder: '000000/0ea5e9?text=HUD+Neon' },
+            { id: 'matrix', title: 'The Matrix', category: 'Cyberpunk', desc: 'Digital rain canvas effect with terminal styling.', placeholder: '000000/00ff00?text=Matrix+Code' },
+            { id: 'glass-blue', title: 'Glassmorphism', category: 'Modern', desc: 'Frosted glass effect with vibrant gradients.', placeholder: '3b82f6/ffffff?text=Glass+Blue' },
+            { id: 'retro-80s', title: 'Synthwave 84', category: 'Retro', desc: 'Sunsets, grids and pixel fonts.', placeholder: '1e1b4b/facc15?text=Synthwave' },
+            { id: 'neumorphism', title: 'Soft Neumorphism', category: 'Minimal', desc: 'Tactile, soft shadows design trend.', placeholder: 'e0e5ec/9ca3af?text=Neumorphism' },
+            { id: 'vaporwave', title: 'Vaporwave OS', category: 'Retro', desc: 'Windows 95 aesthetics with pastel glitches.', placeholder: 'f9a8d4/818cf8?text=Vaporwave' },
+            { id: 'brutalist', title: 'Raw Brutalism', category: 'Modern', desc: 'High contrast, bold borders, no nonsense.', placeholder: 'ffffff/000000?text=Brutalist' },
+            { id: 'dark-academia', title: 'Dark Academia', category: 'Classic', desc: 'Serif fonts, paper textures and history.', placeholder: '1c1917/a8a29e?text=Academia' },
+            { id: 'kawaii', title: 'Kawaii Pastel', category: 'Minimal', desc: 'Cute, rounded and friendly pink interface.', placeholder: 'fdf2f8/ec4899?text=Kawaii' },
+            { id: 'minimal-corp', title: 'SaaS Corporate', category: 'Minimal', desc: 'Clean, trustworthy business layout.', placeholder: 'ffffff/2563eb?text=Corporate' }
         ];
 
         // ==========================================
-        // 2. RENDER LOGIC
+        // 3. LOGIC
         // ==========================================
         const grid = document.getElementById('template-grid');
-        const countDisplay = document.getElementById('count-display');
         const searchInput = document.getElementById('search-input');
+        let activeCategory = 'all';
 
         function render(items) {
-            countDisplay.innerText = items.length;
+            document.getElementById('count-display').innerText = items.length;
             
-            if (items.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500 font-mono">NO RESULTS</div>`;
+            if(items.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-20 text-gray-500 font-mono">NO_DATA_FOUND_</div>`;
                 return;
             }
 
-            grid.innerHTML = items.map(t => `
-                <div class="glass-card rounded-xl flex flex-col h-full group">
-                    <div class="relative h-48 overflow-hidden bg-bg border-b border-white/5">
-                        <img src="https://placehold.co/800x600/${t.placeholder}" alt="${t.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
-                             <button onclick="openPreview('${t.id}')" class="px-4 py-1.5 bg-white text-black font-bold text-xs rounded hover:bg-cyan hover:scale-105 transition shadow-lg">PREVIEW</button>
+            grid.innerHTML = items.map(t => {
+                const imgUrl = `https://placehold.co/800x600/${t.placeholder}`;
+                
+                return `
+                <div class="cyber-card rounded-xl overflow-hidden flex flex-col h-full group relative">
+                    <div class="relative h-48 overflow-hidden border-b border-cyber-cyan/20">
+                        <img src="${imgUrl}" alt="${t.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100 mix-blend-screen">
+                        
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-[2px]">
+                            <button onclick="openPreview('${t.id}')" class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center hover:bg-cyber-cyan hover:scale-110 transition shadow-[0_0_15px_rgba(255,255,255,0.5)]">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </button>
                         </div>
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <h3 class="text-lg font-display font-bold text-white mb-2 group-hover:text-cyan transition-colors">${t.title}</h3>
-                        <p class="text-sm text-gray-400 font-mono mb-6 flex-grow leading-relaxed">${t.desc}</p>
-                        <div class="flex gap-2 mt-auto">
-                            <button onclick="downloadZip('${t.id}')" id="btn-${t.id}" class="flex-1 py-2 bg-white/5 border border-white/10 hover:border-accent hover:text-accent text-gray-300 rounded text-xs font-mono font-bold transition flex items-center justify-center">DOWNLOAD</button>
-                            <button onclick="openPreview('${t.id}')" class="px-4 py-2 bg-white/5 border border-white/10 hover:border-cyan hover:text-cyan text-gray-300 rounded text-xs font-mono font-bold transition">VIEW</button>
+
+                    <div class="p-5 flex flex-col flex-grow relative">
+                        <div class="absolute top-0 right-0 w-3 h-3 border-t border-r border-cyber-cyan/50"></div>
+                        
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-display font-bold text-white group-hover:text-cyber-cyan transition-colors truncate pr-2 shadow-black drop-shadow-md">${t.title}</h3>
+                            <span class="text-[10px] uppercase font-mono px-2 py-1 bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 rounded">${t.category}</span>
+                        </div>
+                        
+                        <p class="text-sm text-gray-400 font-light mb-6 flex-grow leading-relaxed font-mono">${t.desc}</p>
+                        
+                        <div class="flex gap-3 mt-auto">
+                            <button onclick="downloadZip('${t.id}')" id="btn-${t.id}" class="flex-1 py-2.5 bg-gradient-to-r from-gray-800 to-gray-900 border border-white/10 hover:border-cyber-cyan/50 text-gray-300 rounded font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 group/btn relative overflow-hidden">
+                                <span class="absolute inset-0 bg-cyber-cyan/10 translate-y-full group-hover/btn:translate-y-0 transition-transform"></span>
+                                <span class="relative z-10 flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    DOWNLOAD
+                                </span>
+                            </button>
+                            
+                            <button onclick="openPreview('${t.id}')" class="px-4 py-2.5 bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan hover:bg-cyber-cyan hover:text-black rounded font-mono text-xs uppercase font-bold transition-all shadow-[0_0_10px_rgba(14,165,233,0.1)] hover:shadow-[0_0_20px_rgba(14,165,233,0.5)]">
+                                VIEW
+                            </button>
                         </div>
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // Search Filter
-        searchInput.addEventListener('input', (e) => {
-            const q = e.target.value.toLowerCase();
-            render(templates.filter(t => t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)));
-        });
+        // Filter Logic
+        function filterItems() {
+            const query = searchInput.value.toLowerCase();
+            const filtered = templates.filter(t => {
+                const matchesSearch = t.title.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query);
+                const matchesCat = activeCategory === 'all' || t.category === activeCategory;
+                return matchesSearch && matchesCat;
+            });
+            render(filtered);
+        }
 
-        // View Logic
+        function filterCat(cat) {
+            activeCategory = cat;
+            // Update UI buttons
+            const buttons = document.querySelectorAll('#category-filters button');
+            buttons.forEach(btn => {
+                if(btn.textContent === cat.toUpperCase() || (cat === 'all' && btn.textContent === 'ALL')) {
+                    btn.classList.add('bg-cyber-cyan', 'text-black', 'font-bold');
+                    btn.classList.remove('bg-slate-800', 'text-gray-300');
+                } else {
+                    btn.classList.remove('bg-cyber-cyan', 'text-black', 'font-bold');
+                    btn.classList.add('bg-slate-800', 'text-gray-300');
+                }
+            });
+            filterItems();
+        }
+
+        searchInput.addEventListener('input', filterItems);
+
+        // Preview Logic (Blob)
         function openPreview(id) {
-            const blob = new Blob([sourceCodes[id] || '<h1>Error</h1>'], { type: 'text/html' });
+            const code = sourceCodes[id];
+            if (!code) return alert("System Error: Source Code Not Found.");
+            const blob = new Blob([code], { type: 'text/html' });
             window.open(URL.createObjectURL(blob), '_blank');
         }
 
-        // Download Logic
+        // Download Logic (JSZip)
         async function downloadZip(id) {
             const btn = document.getElementById(`btn-${id}`);
-            const orig = btn.innerHTML;
-            btn.innerHTML = `<span class="spinner"></span>`;
-            btn.disabled = true;
+            const originalContent = btn.innerHTML;
+            
+            btn.innerHTML = `<span class="cyber-loader"></span>`;
+            
             try {
+                const code = sourceCodes[id];
                 const zip = new JSZip();
-                zip.folder(`hn500-${id}`).file("index.html", sourceCodes[id]).file("README.md", `# ${id}`);
+                const folder = zip.folder(`hn500-${id}`);
+                folder.file("index.html", code);
+                folder.file("README.txt", `TEMPLATE: ${id.toUpperCase()}\nSOURCE: HN500 UI FORGE\nLICENSE: MIT`);
+                
                 const content = await zip.generateAsync({type:"blob"});
                 const a = document.createElement("a");
                 a.href = URL.createObjectURL(content);
-                a.download = `${id}.zip`;
+                a.download = `hn500-${id}.zip`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                btn.innerHTML = `<span class="text-green-400">OK</span>`;
-            } catch(e) { btn.innerHTML = "ERR"; }
-            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1500);
+                
+                btn.innerHTML = `<span class="text-cyber-cyan font-bold">DONE</span>`;
+                setTimeout(() => btn.innerHTML = originalContent, 2000);
+            } catch(e) {
+                console.error(e);
+                btn.innerHTML = `ERR`;
+                setTimeout(() => btn.innerHTML = originalContent, 2000);
+            }
         }
 
         // Init
         render(templates);
+
+        // ==========================================
+        // 4. BACKGROUND PARTICLE SYSTEM
+        // ==========================================
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(14, 165, 233, ${this.alpha})`; // Cyan particles
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            resize();
+            particles = [];
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw Grid Lines (Retro Effect)
+            ctx.strokeStyle = 'rgba(14, 165, 233, 0.05)';
+            ctx.lineWidth = 1;
+            const gridSize = 50;
+            // Vertical
+            for (let x = 0; x <= width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            // Horizontal
+            for (let y = 0; y <= height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+
+            // Draw Particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+                // Draw connections
+                particles.forEach(p2 => {
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 100) {
+                        ctx.strokeStyle = `rgba(14, 165, 233, ${0.1 - dist/1000})`;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resize);
+        initParticles();
+        animate();
     </script>
 </body>
 </html>
